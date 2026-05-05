@@ -1,0 +1,5 @@
+- [ ] Implementar solve_linear_system e testar 
+- [ ] Arrumar o método de newton e testar
+- [ ] Gerar os valores pro método de broyden e testar
+- [ ] Usar o método de newton para resolver o de broyden e testar
+- [ ] Adicionar os prints
