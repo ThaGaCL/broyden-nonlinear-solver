@@ -10,28 +10,34 @@ Newton(F, J, X(0), 𝜺1, 𝜺2, max):
         Se || 𝚫(i) || < 𝜺2 devolva X(i+1)
 */
 
-double* newton(double* (*F)(double*), double** (*J)(double*), double* X, double epsilon1, double epsilon2, long long int max_it) {
-    double* delta = NULL; // Vetor de variação
+void newton(void (*F)(double*, double*, long long int), void (*J)(double**, double*, long long int), double* X, double epsilon1, double epsilon2, long long int max_it, long long int n) {
+    double* delta = calloc(n, sizeof(double)); // Vetor de variação
+    double* fx = calloc(n, sizeof(double)); // Vetor de F(X)
+    double** jacobiana = calloc(n, sizeof(double*)); // Matriz Jacobiana
+    for (long long int i = 0; i < n; i++) {
+        jacobiana[i] = calloc(n, sizeof(double));
+    }
+
     for (long long int i = 0; i < max_it; i++) {
-        if (norm(F(X)) < epsilon1) {
-            break;
-        }
-        // Zerar Fx
-        double* minus_fx = F(X);
-        for (int j = 0; j < sizeof(minus_fx) / sizeof(minus_fx[0]); j++) {
-            minus_fx[j] = -minus_fx[j];
-        }
-        delta = solve_linear_system(J(X), minus_fx); // Resolver o sistema linear
-        // Atualizar a solução
-        for (int j = 0; j < sizeof(X) / sizeof(X[0]); j++) {
-            X[j] += delta[j];
-        }
-        if (norm(delta) < epsilon2) {
-            break;
-        }
+        F(fx, X, n);
+        if (norm(fx, n) < epsilon1) break; // Solução encontrada
+        
+        for (long long int j = 0; j < n; j++) fx[j] = -fx[j]; // Inverter Fx
+
+        J(jacobiana, X, n); // Calcular a Jacobiana
+        solve_linear_system(delta, jacobiana, fx, n); // Resolver o sistema linear
+
+        for (long long int j = 0; j < n; j++) X[j] += delta[j]; // Atualizar a solução
+
+        if (norm(delta, n) < epsilon2) break; // Solução encontrada
     }
-    if (delta != NULL) {
-        free(delta);
+
+    free(delta);
+    free(fx);
+    for (long long int i = 0; i < n; i++) {
+        free(jacobiana[i]);
     }
-    return X;
+    free(jacobiana);
+
+    // Não precisa retornar o X pois ele é modificado in-place
 }
