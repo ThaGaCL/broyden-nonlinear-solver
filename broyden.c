@@ -1,6 +1,17 @@
 #include "broyden.h"
-#include <stdlib.h>
 
+double norm(double* Fx, int n)
+{
+
+    double max = Fx[0];
+
+    for(int i = 1; i < n; ++i){
+        if(Fx[i] > max)
+            max = Fx[i];
+    }
+
+    return max;
+}
 /*
 Newton(F, J, X(0), 𝜺1, 𝜺2, max):
     Para i = 0 … max-1:
@@ -25,7 +36,7 @@ void newton(void (*F)(double*, double*, long long int), void (*J)(double**, doub
         for (long long int j = 0; j < n; j++) fx[j] = -fx[j]; // Inverter Fx
 
         J(jacobiana, X, n); // Calcular a Jacobiana
-        solve_linear_system(delta, jacobiana, fx, n); // Resolver o sistema linear
+        solve_linear_system(jacobiana, delta, fx, n); // Resolver o sistema linear
 
         for (long long int j = 0; j < n; j++) X[j] += delta[j]; // Atualizar a solução
 

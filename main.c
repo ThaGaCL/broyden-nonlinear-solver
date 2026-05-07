@@ -11,6 +11,11 @@ int main(){
     printf("Iniciando o programa com os valores: \n");
     printf("Dimensão do SNLB: %d \n Valor inicial das variáveis: %lf \n Episilon: %.10lf \n Máximo de iterações: %d\n",n,x0,episilon,max_it);
     
+    // gera sistema de broyden
+    // gera Jacobiana inicial
+    // resolve o sistema
+    //newton(F, J, X, episilon, episilon, max_it, n)
+    
     return 0;
 
 }
