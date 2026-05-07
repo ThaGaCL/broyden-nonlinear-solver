@@ -2,7 +2,7 @@
 PROG = broyden
 
 # Objetos necessários
-OBJS = main.o broyden.o utils.o
+OBJS = main.o broyden.o utils.o linear.o
 
 # Flags
 AVX_FLAGS = -mavx2 -march=native -fopt-info-vec
@@ -24,7 +24,7 @@ $(PROG): $(OBJS)
 
 # Regra para transformar .c em .o
 # O $< pega o arquivo .c e o $@ define o nome do .o
-%.o: %.c broyden.h utils.h
+%.o: %.c broyden.h utils.h linear.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
