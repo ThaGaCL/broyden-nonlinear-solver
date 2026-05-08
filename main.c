@@ -4,18 +4,21 @@
 
 int main(){
     // Lê as entradas
-    int n, max_it;
+    long long int n, max_it;
     double x0, episilon;
 
-    scanf("%d %lf %lf %d", &n,&x0,&episilon,&max_it); 
+    scanf("%lld %lf %lf %lld", &n,&x0,&episilon,&max_it); 
     printf("Iniciando o programa com os valores: \n");
-    printf("Dimensão do SNLB: %d \n Valor inicial das variáveis: %lf \n Episilon: %.10lf \n Máximo de iterações: %d\n",n,x0,episilon,max_it);
+    printf("Dimensão do SNLB: %lld \n Valor inicial das variáveis: %lf \n Episilon: %.10lf \n Máximo de iterações: %lld\n",n,x0,episilon,max_it);
     
-    // gera sistema de broyden
+    double *X = calloc(n, sizeof(double));
+    for (long long int i = 0; i < n; i++) {
+        X[i] = x0; // Inicializa o vetor X com o valor inicial
+    }
+
     // gera Jacobiana inicial
     // resolve o sistema
-    //newton(F, J, X, episilon, episilon, max_it, n)
+    //newton(broyden, J, X, episilon, episilon, max_it, n)
     
     return 0;
-
 }

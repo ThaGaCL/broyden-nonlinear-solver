@@ -36,7 +36,7 @@ void newton(void (*F)(double*, double*, long long int), void (*J)(double**, doub
         for (long long int j = 0; j < n; j++) fx[j] = -fx[j]; // Inverter Fx
 
         J(jacobiana, X, n); // Calcular a Jacobiana
-        solve_linear_system(jacobiana, delta, fx, n); // Resolver o sistema linear
+        solve_linear_system(jacobiana, fx, delta, n); // J(X(i))𝚫(i) = -F(X(i)) ==> Ax = b ==> J=A; -Fx=b; delta=x
 
         for (long long int j = 0; j < n; j++) X[j] += delta[j]; // Atualizar a solução
 
@@ -51,4 +51,22 @@ void newton(void (*F)(double*, double*, long long int), void (*J)(double**, doub
     free(jacobiana);
 
     // Não precisa retornar o X pois ele é modificado in-place
+}
+
+/*
+f(x) = {
+    f_1(x) = -2x_1² + 3x_1 - 2x_2 + 1
+    f_i(x) = -2x_i² + 3x_i - x_(i - 1) - 2x_(i + 1) + 1, para i = 2, …, n-1
+    f_n(x) = -2x_n² + 3x_n - x_(n - 1)
+}
+*/
+
+void broyden(double* fx, double* x, long long int n) {
+    fx[0] = -2*x[0]*x[0] + 3*x[0] - 2*x[1] + 1; // f_1(x)
+    
+    for (long long int i = 1; i < n-1; i++) {
+        fx[i] = -2*x[i]*x[i] + 3*x[i] - x[i-1] - 2*x[i+1] + 1; // f_i(x)
+    }
+
+    fx[n-1] = -2*x[n-1]*x[n-1] + 3*x[n-1] - x[n-2]; // f_n(x)
 }
