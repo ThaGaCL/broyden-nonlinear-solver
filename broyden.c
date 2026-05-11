@@ -70,3 +70,25 @@ void broyden(double* fx, double* x, long long int n) {
 
     fx[n-1] = -2*x[n-1]*x[n-1] + 3*x[n-1] - x[n-2]; // f_n(x)
 }
+
+// Tem que inicializar Jac na main tudo com 0.0
+void calc_jacobiana(double** Jac, double* x, long long int n) {
+
+    // Primeira linha (i = 0)
+    Jac[0][0] = -4.0 * x[0] + 3.0; 
+    if (n > 1) {
+        Jac[0][1] = -2.0;          
+    }
+    
+    for (long long int i = 1; i < n - 1; i++) {
+        Jac[i][i - 1] = -1.0;              // Subdiagonal
+        Jac[i][i] = -4.0 * x[i] + 3.0; // Diagonal principal
+        Jac[i][i + 1] = -2.0;              // Superdiagonal
+    }
+
+    // Ultima linha (i = n - 1)
+    if (n > 1) {
+        Jac[n - 1][n - 2] = -1.0;                  
+        Jac[n - 1][n - 1] = -4.0 * x[n - 1] + 3.0; 
+    }
+}

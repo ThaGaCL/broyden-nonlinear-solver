@@ -11,4 +11,6 @@ void newton(void (*F)(double*, double*, long long int), void (*J)(double**, doub
 
 void broyden(double* fx, double* x, long long int n);
 
+void calc_jacobiana(double** Jac, double* x, long long int n);
+
 #endif

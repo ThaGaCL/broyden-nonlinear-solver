@@ -16,9 +16,26 @@ int main(){
         X[i] = x0; // Inicializa o vetor X com o valor inicial
     }
 
+    for(int i = 0; i<n; i++)
+        printf(" %.10lf ", X[i]);
+    printf("\n");
     // gera Jacobiana inicial
-    // resolve o sistema
-    //newton(broyden, J, X, episilon, episilon, max_it, n)
+
+    double **J = calloc(n, sizeof(double));
     
+    for (long long int i = 0; i < n; i++){
+        J[i] = calloc(n, sizeof(double));
+    }
+
+    calc_jacobiana(J, X , n);
+
+    // resolve o sistema
+    newton(broyden, calc_jacobiana, X, episilon, episilon, max_it, n);
+    
+    for(int i = 0; i<n; i++)
+        printf(" %.10lf ", X[i]);
+    
+    printf("\n");
+
     return 0;
 }
