@@ -1,12 +1,16 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 199309L
+#endif
 
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
+#include <stdio.h>
 
 // Valor absoluto de um número real. Alternativa ao uso da função 'fabs()'
-#define ABS(num)  ((num) < 0.0 ? -(num) : (num))
+#define ABS(num) ((num) < 0.0 ? -(num) : (num))
 
 // real_t: tipo usado para representar valores em ponto flutuante
 typedef double real_t;
@@ -35,7 +39,13 @@ typedef long long int lint_t;
 
 // Funções
 rtime_t timestamp(void);
-string_t markerName(string_t baseName, int n);
+string_t markerName(string_t base_name, int n);
+real_t* alocaVetor(lint_t n);
+real_t* alocaVetorInicializado(lint_t n, real_t valor_inicial);
+real_t **alocaMatriz(lint_t linhas, lint_t colunas);
+real_t **alocaMatrizInicializada(lint_t linhas, lint_t colunas, real_t valor_inicial);
+void liberaVetor(real_t* vetor);
+void liberaMatriz(real_t** matriz, lint_t linhas);
+void imprimeIteracao(real_t* X, lint_t n, FILE* out);
 
 #endif // __UTILS_H__
-

@@ -1,0 +1,154 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-mavx2",
+      "-march=native",
+      "-fopt-info-vec",
+      "-Wno-unused-result",
+      "-Iheaders",
+      "-std=gnu11",
+      "-c",
+      "-o",
+      "objs/linear.o",
+      "srcs/linear.c"
+    ],
+    "directory": "/home/nico/Desktop/ICC/broyden-nonlinear-solver",
+    "file": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/srcs/linear.c",
+    "output": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/objs/linear.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-mavx2",
+      "-march=native",
+      "-fopt-info-vec",
+      "-Wno-unused-result",
+      "-Iheaders",
+      "-std=gnu11",
+      "-c",
+      "-o",
+      "objs/non_linear.o",
+      "srcs/non_linear.c"
+    ],
+    "directory": "/home/nico/Desktop/ICC/broyden-nonlinear-solver",
+    "file": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/srcs/non_linear.c",
+    "output": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/objs/non_linear.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-mavx2",
+      "-march=native",
+      "-fopt-info-vec",
+      "-Wno-unused-result",
+      "-Iheaders",
+      "-std=gnu11",
+      "-c",
+      "-o",
+      "objs/utils.o",
+      "srcs/utils.c"
+    ],
+    "directory": "/home/nico/Desktop/ICC/broyden-nonlinear-solver",
+    "file": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/srcs/utils.c",
+    "output": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/objs/utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-O3",
+      "-mavx2",
+      "-march=native",
+      "-fopt-info-vec",
+      "-Wno-unused-result",
+      "-Iheaders",
+      "-std=gnu++11",
+      "-c",
+      "-o",
+      "unittests/objs/main.o",
+      "unittests/main.cpp"
+    ],
+    "directory": "/home/nico/Desktop/ICC/broyden-nonlinear-solver",
+    "file": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/main.cpp",
+    "output": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/objs/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-O3",
+      "-mavx2",
+      "-march=native",
+      "-fopt-info-vec",
+      "-Wno-unused-result",
+      "-Iheaders",
+      "-std=gnu++11",
+      "-c",
+      "-o",
+      "unittests/objs/test_broyden.o",
+      "unittests/test_broyden.cpp"
+    ],
+    "directory": "/home/nico/Desktop/ICC/broyden-nonlinear-solver",
+    "file": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/test_broyden.cpp",
+    "output": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/objs/test_broyden.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-O3",
+      "-mavx2",
+      "-march=native",
+      "-fopt-info-vec",
+      "-Wno-unused-result",
+      "-Iheaders",
+      "-std=gnu++11",
+      "-c",
+      "-o",
+      "unittests/objs/test_jacobiana.o",
+      "unittests/test_jacobiana.cpp"
+    ],
+    "directory": "/home/nico/Desktop/ICC/broyden-nonlinear-solver",
+    "file": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/test_jacobiana.cpp",
+    "output": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/objs/test_jacobiana.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-O3",
+      "-mavx2",
+      "-march=native",
+      "-fopt-info-vec",
+      "-Wno-unused-result",
+      "-Iheaders",
+      "-std=gnu++11",
+      "-c",
+      "-o",
+      "unittests/objs/test_linear.o",
+      "unittests/test_linear.cpp"
+    ],
+    "directory": "/home/nico/Desktop/ICC/broyden-nonlinear-solver",
+    "file": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/test_linear.cpp",
+    "output": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/objs/test_linear.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-O3",
+      "-mavx2",
+      "-march=native",
+      "-fopt-info-vec",
+      "-Wno-unused-result",
+      "-Iheaders",
+      "-std=gnu++11",
+      "-c",
+      "-o",
+      "unittests/objs/test_newton.o",
+      "unittests/test_newton.cpp"
+    ],
+    "directory": "/home/nico/Desktop/ICC/broyden-nonlinear-solver",
+    "file": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/test_newton.cpp",
+    "output": "/home/nico/Desktop/ICC/broyden-nonlinear-solver/unittests/objs/test_newton.o"
+  }
+]
