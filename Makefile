@@ -16,9 +16,15 @@ TEST_OBJS = $(filter-out $(OBJ_DIR)/main.o, $(OBJS)) $(patsubst $(TEST_DIR)/%.cp
 CC = gcc
 CXX = g++
 
+# Controle da macro de entrega:
+# make            -> compila com -DENTREGA
+# make ENTREGA=0  -> compila sem -DENTREGA
+ENTREGA ?= 1
+ENTREGA_FLAG := $(if $(filter 1,$(ENTREGA)),-DENTREGA)
+
 # Flags
 AVX_FLAGS = -mavx -march=native -fopt-info-vec
-CFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11
+CFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11 $(ENTREGA_FLAG)
 CXXFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu++11
 LFLAGS = -lm
 

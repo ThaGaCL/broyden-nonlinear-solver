@@ -132,8 +132,10 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         // Iteracao principal do metodo de Newton: Para i = 0 … max-1:
         for (lint_t i = 0; i < max_it; i++)
         {
+            #ifdef ENTREGA
             imprimeIteracao(X, n, out_file); // Imprime a iteracao atual
             fprintf(out_file, "#\n"); // Separador entre iteracoes
+            #endif
 
             // Calcula broyden: F(X(i))
             broyden(fx, X, n);
@@ -169,7 +171,9 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             }
         }
 
+        #ifdef ENTREGA
         imprimeIteracao(X, n, out_file); // Imprime a iteracao final
+        #endif
 
         // Libera a memoria alocada
         liberaVetor(delta);
