@@ -9,7 +9,7 @@ TEST_CASE("Calculo da matriz jacobiana para a funcao de broyden")
 {
     SUBCASE("Vetor nulo")
     {
-        // Edge case: vetor vazio, nenhuma computação esperada
+        // Edge case: vetor vazio, nenhuma computacao esperada
         // Apenas verifica se o programa nao da segfault
         jacobiana(nullptr, nullptr, 0);
 
@@ -59,7 +59,7 @@ TEST_CASE("Calculo da matriz jacobiana para a funcao de broyden")
     SUBCASE("Vetor de tamanho 3 com zeros")
     {
         // x = {0.0, 0.0, 0.0}
-        // As derivadas -4x_i + 3 resultarão todas em 3.0
+        // As derivadas -4x_i + 3 resultarao todas em 3.0
         
         lint_t n = 3;
         real_t x[]  = {0.0, 0.0, 0.0};
@@ -236,10 +236,10 @@ SUBCASE("Vetor de tamanho 4 com valores negativos")
         lint_t n = 3;
         real_t x[] = {1.0, 2.0, 3.0};
         
-        // Aloca matriz 5x5, a matriz a ser preenchida é a submatriz 3x3 central
+        // Aloca matriz 5x5, a matriz a ser preenchida e a submatriz 3x3 central
         real_t **jac_guarded = alocaMatrizInicializada(5, 5, 0.0);
         
-        // Preenche a borda com canários
+        // Preenche a borda com canarios
         for(lint_t k = 0; k < 5; k++)
         {
             // Linhas externas
@@ -254,7 +254,7 @@ SUBCASE("Vetor de tamanho 4 com valores negativos")
             }
         }
 
-        // Passa o ponteiro deslocado, de forma que jac[0][0] é na verdade jac_guarded[1][1]
+        // Passa o ponteiro deslocado, de forma que jac[0][0] e na verdade jac_guarded[1][1]
         real_t* jac[3] = {
             &jac_guarded[1][1], // jac[0][0] aponta para jac_guarded[1][1]
             &jac_guarded[2][1], // jac[1][0] aponta para jac_guarded[2][1]
@@ -263,7 +263,7 @@ SUBCASE("Vetor de tamanho 4 com valores negativos")
 
         jacobiana(jac, x, n);
 
-        // Verifica que as bordas da matriz não foram modificadas
+        // Verifica que as bordas da matriz nao foram modificadas
         for(lint_t k = 0; k < 5; k++) {
             CHECK(jac_guarded[0][k] == doctest::Approx(1234.0)); // Linha superior, underflow horizontal
             CHECK(jac_guarded[4][k] == doctest::Approx(4321.0)); // Linha inferior, overflow horizontal

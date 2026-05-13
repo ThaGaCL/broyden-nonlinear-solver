@@ -9,7 +9,7 @@ TEST_CASE("Calculo da funcao de broyden para um vetor")
 {
     SUBCASE("Vetor nulo")
     {
-        // Edge case: vetor vazio, nenhuma computação esperada
+        // Edge case: vetor vazio, nenhuma computacao esperada
         // Apenas verifica se o programa nao da segfault
 
         broyden(nullptr, nullptr, 0);
@@ -167,15 +167,15 @@ TEST_CASE("Calculo da funcao de broyden para um vetor")
         // Adiciona "canarios" nas extremidades para detectar vazamentos
         real_t fx_guarded[] = {1234.0, 0.0, 0.0, 0.0, 4321.0};
         
-        // Passa o ponteiro deslocado, de forma que fx[0] é na verdade fx_guarded[1]
+        // Passa o ponteiro deslocado, de forma que fx[0] e na verdade fx_guarded[1]
         real_t* fx = &fx_guarded[1];
 
         broyden(fx, x, n);
 
-        // Verifica que as bordas da memória não foram afetadas (underflow / overflow)
+        // Verifica que as bordas da memoria nao foram afetadas (underflow / overflow)
         CHECK(fx_guarded[0] == doctest::Approx(1234.0));
         CHECK(fx_guarded[4] == doctest::Approx(4321.0));
 
-        // A corretude dos valores calculados é coberto pelos outros testes
+        // A corretude dos valores calculados e coberto pelos outros testes
     }
 }

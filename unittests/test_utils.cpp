@@ -60,7 +60,7 @@ TEST_CASE("Funcoes utilitarias: alocacao, markerName e timestamp")
         }
     }
 
-    SUBCASE("markerName e liberacao")
+    SUBCASE("markerName")
     {
         string_t s = markerName((char*)"TEST", 42);
         CHECK(s != nullptr);
@@ -73,8 +73,8 @@ TEST_CASE("Funcoes utilitarias: alocacao, markerName e timestamp")
 
     SUBCASE("timestamp monotonia")
     {
-        // Amostras simples: verifica que timestamp() é não-negativo
-        // e que uma segunda amostra não é maior que a primeira.
+        // Amostras simples: verifica que timestamp() e nao-negativo
+        // e que uma segunda amostra nao e maior que a primeira.
         rtime_t t1 = timestamp();
         rtime_t t2 = timestamp();
 

@@ -1,5 +1,7 @@
 ## Requisitos do enunciado
-- [ ] Adicionar os tempos e a soma deles
+- [ ] Gráficos e métricas do likwid
 
-
-- [ ] Arrumar testes de newton
+## Otimizar
+- [ ] Qual método aplicar na resolução dos sistemas lineares internos?
+- [ ] Qual estrutura de dados utilizar para representar as matrizes e/ou vetores?
+- [ ] Como calcular a matriz Jacobiana a cada iteração do método?

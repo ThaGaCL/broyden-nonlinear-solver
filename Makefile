@@ -17,9 +17,9 @@ CC = gcc
 CXX = g++
 
 # Flags
-AVX_FLAGS = -mavx2 -march=native -fopt-info-vec
-CFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -I$(HEADERS_DIR) -std=gnu11
-CXXFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -I$(HEADERS_DIR) -std=gnu++11
+AVX_FLAGS = -mavx -march=native -fopt-info-vec
+CFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11
+CXXFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu++11
 LFLAGS = -lm
 
 # Arquivos para o tar
@@ -67,11 +67,11 @@ run-tests: $(TEST_PROG)
 
 clean:
 	@echo "Limpando sujeira..."
-	@rm -rf $(OBJ_DIR) $(TEST_OBJ_DIR) *~ *.bak core 
+	@rm -rf $(OBJ_DIR) $(TEST_OBJ_DIR) *~ *.bak core $(PROG) $(TEST_PROG) a.out
 
 purge: clean
 	@echo "Limpando tudo..."
-	@rm -f $(PROG) $(TEST_PROG) a.out $(DISTDIR).tgz
+	@rm -f $(DISTDIR).tgz
 
 dist: purge
 	@echo "Gerando arquivo de distribuição ($(DISTDIR).tgz)..."

@@ -21,18 +21,18 @@ rtime_t timestamp()
 
 /* Gera string '<baseName>_n'
  * Por exemplo, se baseName = "ABC" e n = 10,
- *  Função retorna a string "ABC_10"
- * Útil para gerar marcadores para LIKWID
+ *  Funcao retorna a string "ABC_10"
+ * Util para gerar marcadores para LIKWID
  */
-string_t markerName(string_t base_name, int n)
+string_t markerName(string_t base_name, lint_t n)
 {
   string_t mark = (string_t)malloc((strlen(base_name) + 1) + numDigits(n) + 1);
-  sprintf(mark, "%s_%u", base_name,n);
+  sprintf(mark, "%s_%lld", base_name, n);
 
   return mark;
 }
 
-// Aloca um vetor de tamanho n, mas não o inicializa
+// Aloca um vetor de tamanho n, mas nao o inicializa
 real_t* alocaVetor(lint_t n)
 {
     if (n <= 0)
@@ -61,7 +61,7 @@ real_t* alocaVetorInicializado(lint_t n, real_t valor_inicial)
     return vetor;
 }
 
-// Aloca uma matriz de tamanho linhas x colunas, mas não a inicializa
+// Aloca uma matriz de tamanho linhas x colunas, mas nao a inicializa
 real_t **alocaMatriz(lint_t linhas, lint_t colunas)
 {
     if (linhas <= 0 || colunas <= 0)
@@ -102,7 +102,7 @@ real_t **alocaMatrizInicializada(lint_t linhas, lint_t colunas, real_t valor_ini
     return matriz;
 }
 
-// Libera a memória alocada para um vetor
+// Libera a memoria alocada para um vetor
 void liberaVetor(real_t* vetor)
 {
     if (vetor)
@@ -111,7 +111,7 @@ void liberaVetor(real_t* vetor)
     }
 }
 
-// Libera a memória alocada para uma matriz
+// Libera a memoria alocada para uma matriz
 void liberaMatriz(real_t** matriz, lint_t linhas)
 {
     if (matriz)
@@ -137,4 +137,20 @@ void imprimeIteracao(real_t* X, lint_t n, FILE* out)
     {
         fprintf(out, "x%lld = %.10lf\n", (long long)(i + 1), X[i]);
     }
+}
+
+/* Imprime os tempos gastos em cada etapa do metodo de Newton no formato:
+###########
+# Tempo Total: <tempo total do Metodo de Newton>
+# Tempo Jacobiana: <tempo gasto na construcao das Jacobianas>
+# Tempo SL: <tempo gasto na resolucao dos sistemas lineares>
+###########
+*/
+void imprimeTempos(rtime_t newton_time, rtime_t jac_time, rtime_t linear_time, FILE* out)
+{
+    fprintf(out, "###########\n");
+    fprintf(out, "# Tempo Total: %.10lf ms\n", newton_time);
+    fprintf(out, "# Tempo Jacobiana: %.10lf ms\n", jac_time);
+    fprintf(out, "# Tempo SL: %.10lf ms\n", linear_time);
+    fprintf(out, "###########\n");
 }

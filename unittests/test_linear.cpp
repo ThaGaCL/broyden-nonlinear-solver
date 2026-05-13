@@ -10,7 +10,7 @@ TEST_CASE("Calculo da solucao de um sistema linear")
 {
     SUBCASE("Sistema nulo")
     {
-        // Edge case: sistema vazio, nenhuma computação esperada
+        // Edge case: sistema vazio, nenhuma computacao esperada
         // Apenas verifica se o programa nao da segfault
 
         solveLinearSystem(nullptr, nullptr, nullptr, 0);

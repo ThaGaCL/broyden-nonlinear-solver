@@ -4,7 +4,10 @@
 #include "utils.h"
 #include "non_linear.h"
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[])
+{
+    LIKWID_MARKER_INIT;
+
     lint_t n, max_it;
     real_t x0, epsilon;
     FILE *out_file = NULL;
@@ -24,20 +27,22 @@ int main(int argc, char *argv[]){
     scanf("%lld %lf %lf %lld", &n, &x0, &epsilon, &max_it);
 
     printf("=> Iniciando o programa com os valores:\n");
-    printf("> Dimensão do SNLB: %lld\n", n);
-    printf("> Valor inicial das variáveis (x0): %.10g\n", x0);
+    printf("> Dimensao do SNLB: %lld\n", n);
+    printf("> Valor inicial das variaveis (x0): %.10g\n", x0);
     printf("> Epsilon: %.10g\n", epsilon);
-    printf("> Máximo de iterações: %lld\n", max_it);
+    printf("> Maximo de iteracoes: %lld\n", max_it);
 
-    // Resolve o sistema pelo método de Newton
+    // Resolve o sistema pelo metodo de Newton
     real_t *X = alocaVetorInicializado(n, x0);
     newton(X, epsilon, max_it, n, out_file);
     
-    // Libera a memória alocada e fecha o arquivo de saída, se necessário
+    // Libera a memoria alocada e fecha o arquivo de saida, se necessario
     liberaVetor(X);
     if (out_file != NULL) {
         fclose(out_file);
     }
+
+    LIKWID_MARKER_CLOSE;
 
     return 0;
 }

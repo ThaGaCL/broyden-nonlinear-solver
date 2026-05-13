@@ -11,7 +11,7 @@ void eliminacaoGauss(real_t **A, real_t *b, lint_t n)
         {
             if (fabs(A[k][i]) > fabs(A[max_i][i]))
             {
-                max_i = k; // Valor do elemento atual eh maior que o maximo encontrado até agora
+                max_i = k; // Valor do elemento atual eh maior que o maximo encontrado ate agora
             }
         }
         
@@ -31,7 +31,7 @@ void eliminacaoGauss(real_t **A, real_t *b, lint_t n)
         // Elimina as linhas abaixo da linha i
         for (lint_t k = i + 1; k < n; ++k)
         {
-            real_t m = A[k][i] / A [i][i]; // Fator de multiplicação para eliminar o elemento A[k][i]
+            real_t m = A[k][i] / A [i][i]; // Fator de multiplicacao para eliminar o elemento A[k][i]
             A[k][i] = 0.0; // Zera o elemento abaixo do pivo
                 
             // Atualiza os elementos restantes da linha k
@@ -55,7 +55,7 @@ void retrosubstituicao(real_t **A, real_t *b, real_t *x, lint_t n)
         
         for (lint_t j = i+1; j < n; ++j)
         {
-            x[i] -= A[i][j] * x[j]; // Subtrai os termos já calculados da linha atual
+            x[i] -= A[i][j] * x[j]; // Subtrai os termos ja calculados da linha atual
         }
         
         x[i] /= A[i][i]; // Divide pelo elemento diagonal para obter o valor final de x[i]
