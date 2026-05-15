@@ -67,3 +67,58 @@ void solveLinearSystem(real_t **A, real_t *b, real_t *x, lint_t n)
     eliminacaoGauss(A, b, n);
     retrosubstituicao(A, b, x, n);
 }
+
+/*
+Implementacao utilizando a estrategia "struct-of-arrays"
+
+real_t dp[n],
+real_t ds[n],
+real_t di[n],
+real_t x[n+2], x[0] = x[n+1] = 0
+real_t b[n+1]
+
+                x0 b0 -> padding para facilitar os calculos
+dp0 ds0 0   0   x1 b1
+di0 dp1 ds1 0   x2 b2
+0   di1 dp2 ds2 x3 b3
+0   0   di2 dp2 x4 b4
+                x5    -> padding para facilitar os calculos
+*/
+void gaussSeidelSOA(real_t *ds, real_t *dp, real_t *di, real_t *b, real_t *x, lint_t n, lint_t max_it)
+{
+    for (lint_t j = 0; j < max_it; ++j)
+    {
+        for (lint_t i = 1; i < n + 1; ++i)
+        {
+            real_t sup = ds[i] * x[i+1];
+            real_t inf = di[i-2] * x[i-1];
+            x[i] = (b[i] - sup - inf) / dp[i-1];
+        }
+    }
+}
+
+/*
+Implementacao utilizando a estrategia "arrays-of-struct"
+
+tridiagonal A[n+2], A[0].x = A[n+1].x = 0
+
+
+                       A0.x  A0.b -> padding para facilitar os calculos
+A1.p  A1.s  0    0     A1.x  A1.b
+A2.i  A2.p  A2.s 0     A2.x  A2.b
+0     A3.i  A3.p A3.s  A3.x  A3.b
+0     0     A4.i A4.p  A4.x  A4.b
+                       A5.x       -> padding para facilitar os calculos
+*/
+void gaussSeidelAOS(tridiagonal *A, lint_t n, lint_t max_it)
+{
+    for (lint_t j = 0; j < max_it; ++j)
+    {
+        for (lint_t i = 1; i < n + 1; ++i)
+        {
+            real_t sup = A[i].s * A[i+1].x;
+            real_t inf = A[i].i * A[i-1].x;
+            A[i].x = (A[i].b - sup - inf) / A[i].p;
+        }
+    }
+}
