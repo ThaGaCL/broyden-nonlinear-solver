@@ -21,7 +21,7 @@ def lerDados():
         if "TABLE,Region" in linha and "Metric," in linha:
             partes = linha.split(',')
             grupo = partes[3]
-            marker, tamanho = re.sub(r"Region ", "", partes[1]).split('_', 1)
+            marker, tamanho = re.sub(r"Region ", "", partes[1]).rsplit('_', 1)
         elif grupo:
             padroes = campos.get(grupo)
             for metrica, padrao in padroes:

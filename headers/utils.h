@@ -9,7 +9,7 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-#include <likwid-marker.h>
+#include <likwid.h>
 
 // Valor absoluto de um número real. Alternativa ao uso da funcao 'fabs()'
 #define ABS(num) ((num) < 0.0 ? -(num) : (num))
