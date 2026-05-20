@@ -4,10 +4,16 @@ from string import *
 from math import *
 import os, re, sys, csv
 
+# campos = { 
+#     "L2": [("L2", r"L2 miss ratio")], 
+#     "FLOPS_DP": [("FLOPS_DP", r"DP \[*MFLOP/s\]*"), ("FLOPS_AVX", r"AVX DP \[*MFLOP/s\]*")],
+#     "MEM": [("MEM", r"Memory bandwidth")], # Simplificado para ignorar a formatação exata da unidade
+# }
+
 campos = { 
-    "L2": [("L2", r"L3 miss ratio")],
+    "L2": [("L2", r"L2 bandwidth")], 
     "FLOPS_DP": [("FLOPS_DP", r"DP \[*MFLOP/s\]*"), ("FLOPS_AVX", r"AVX DP \[*MFLOP/s\]*")],
-    "MEM": [("MEM", r"Memory bandwidth \[*MB/s\]*")],
+    "MEM": [("MEM", r"Memory bandwidth")], # Simplificado para ignorar a formatação exata da unidade
 }
 
 def lerDados():
@@ -51,6 +57,7 @@ def salvarResultados(dados):
     os.makedirs("resultados", exist_ok=True)
     for marker in dados:
         for grupo in dados[marker]:
+            print(f"Gerando gráfico para {marker} - {grupo}")
             metricas = [metrica for metrica, _ in campos.get(grupo, [])]
             plotFile = os.path.join("resultados", f'{marker}_{grupo}.csv')
             with open(plotFile, "a") as fp:

@@ -39,6 +39,7 @@ PRIMEIRO_GRUPO=$(echo $GRUPOS | awk '{print $1}')
 
 for grupo in $GRUPOS; do
   rm -f ${LIKWID_LOG}
+  echo "Medindo grupo: $grupo"
   for n in $TAMANHOS; do
     LIKWID_OUT="${OUT_DIR}/likwid.txt"
     PROG_OUT="${OUT_DIR}/prog_out.txt"
