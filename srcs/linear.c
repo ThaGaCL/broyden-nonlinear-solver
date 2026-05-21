@@ -78,8 +78,19 @@ void solveLinearSystem(tri_AOS *A, real_t *b, real_t *x, lint_t n)
 {
     // eliminacaoGauss(A, b, n);
     // retrosubstituicao(A, b, x, n);
+    for (lint_t i = 0; i < n; ++i)
+    {
+        A[i].b = b[i];
+        A[i].x = 0.0;
+    }
+
     gaussSeidelAOS(A, n);
-    retrosubstituicaoAOS(A, b, x, n);
+
+    for (lint_t i = 0; i < n; ++i)
+    {
+        x[i] = A[i].x;
+    }
+
 }
 
 /*
