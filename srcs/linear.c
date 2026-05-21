@@ -14,7 +14,7 @@ void eliminacaoGauss(real_t **A, real_t *b, lint_t n)
                 max_i = k; // Valor do elemento atual eh maior que o maximo encontrado ate agora
             }
         }
-        
+
         // Se o indice maximo for diferente do indice atual, troca as linhas
         if (max_i != i)
         {
@@ -31,15 +31,15 @@ void eliminacaoGauss(real_t **A, real_t *b, lint_t n)
         // Elimina as linhas abaixo da linha i
         for (lint_t k = i + 1; k < n; ++k)
         {
-            real_t m = A[k][i] / A [i][i]; // Fator de multiplicacao para eliminar o elemento A[k][i]
-            A[k][i] = 0.0; // Zera o elemento abaixo do pivo
-                
+            real_t m = A[k][i] / A[i][i]; // Fator de multiplicacao para eliminar o elemento A[k][i]
+            A[k][i] = 0.0;                // Zera o elemento abaixo do pivo
+
             // Atualiza os elementos restantes da linha k
-            for (lint_t j = i+1; j<n; ++j)
+            for (lint_t j = i + 1; j < n; ++j)
             {
                 A[k][j] -= A[i][j] * m;
             }
-                
+
             // Atualiza o elemento correspondente do vetor b
             b[k] -= b[i] * m;
         }
@@ -48,24 +48,38 @@ void eliminacaoGauss(real_t **A, real_t *b, lint_t n)
 
 void retrosubstituicao(real_t **A, real_t *b, real_t *x, lint_t n)
 {
-    for (lint_t i = n-1; i>=0; --i)
+    for (lint_t i = n - 1; i >= 0; --i)
     {
         // Inicializa o elemento atual com o valor correspondente do vetor b
         x[i] = b[i];
-        
-        for (lint_t j = i+1; j < n; ++j)
+
+        for (lint_t j = i + 1; j < n; ++j)
         {
             x[i] -= A[i][j] * x[j]; // Subtrai os termos ja calculados da linha atual
         }
-        
+
         x[i] /= A[i][i]; // Divide pelo elemento diagonal para obter o valor final de x[i]
     }
 }
 
-void solveLinearSystem(real_t **A, real_t *b, real_t *x, lint_t n)
+void retrosubstituicaoAOS(tri_AOS *A, real_t *b, real_t *x, lint_t n)
 {
-    eliminacaoGauss(A, b, n);
-    retrosubstituicao(A, b, x, n);
+    if(n <= 0)
+        return;
+
+    x[n - 1] = b[n - 1] / A[n - 1].p;
+    
+    for (lint_t i = n - 2; i >= 0; i--){
+        x[i] = (b[i] - A[i].s * x[i + 1]) / A[i].p;
+    }
+}
+
+void solveLinearSystem(tri_AOS *A, real_t *b, real_t *x, lint_t n)
+{
+    // eliminacaoGauss(A, b, n);
+    // retrosubstituicao(A, b, x, n);
+    gaussSeidelAOS(A, n);
+    retrosubstituicaoAOS(A, b, x, n);
 }
 
 /*
@@ -90,9 +104,9 @@ void gaussSeidelSOA(real_t *ds, real_t *dp, real_t *di, real_t *b, real_t *x, li
     {
         for (lint_t i = 1; i < n + 1; ++i)
         {
-            real_t sup = ds[i] * x[i+1];
-            real_t inf = di[i-2] * x[i-1];
-            x[i] = (b[i] - sup - inf) / dp[i-1];
+            real_t sup = ds[i] * x[i + 1];
+            real_t inf = di[i - 2] * x[i - 1];
+            x[i] = (b[i] - sup - inf) / dp[i - 1];
         }
     }
 }
@@ -110,15 +124,28 @@ A2.i  A2.p  A2.s 0     A2.x  A2.b
 0     0     A4.i A4.p  A4.x  A4.b
                        A5.x       -> padding para facilitar os calculos
 */
-void gaussSeidelAOS(tridiagonal *A, lint_t n, lint_t max_it)
+void gaussSeidelAOS(tri_AOS *A, lint_t n)
 {
-    for (lint_t j = 0; j < max_it; ++j)
+    for (lint_t j = 0; j < MAX_IT; ++j)
     {
-        for (lint_t i = 1; i < n + 1; ++i)
+        A[0].x = (A[0].b - (A[0].s * A[1].x)) / A[0].p; // Primeira Linha
+
+        for (lint_t i = 1; i < n - 1; ++i)
         {
-            real_t sup = A[i].s * A[i+1].x;
-            real_t inf = A[i].i * A[i-1].x;
+            real_t sup = A[i].s * A[i + 1].x;
+            real_t inf = A[i].i * A[i - 1].x;
             A[i].x = (A[i].b - sup - inf) / A[i].p;
         }
+
+        // Ultima LInha
+        if (n > 1)
+        {
+            A[n - 1].x = (A[n - 1].b - (A[n - 1].i * A[n - 2].x)) / A[n - 1].p;
+        }
     }
+}
+
+tri_AOS *alocaTridiagonalAOS(lint_t n)
+{
+    return (tri_AOS *)malloc(sizeof(tri_AOS) * n);
 }

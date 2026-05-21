@@ -70,7 +70,7 @@ J_n(x) = {
 
 jac deve ser inicializada como uma matriz n x n preenchida com zeros antes de chamar a funcao
 */
-void jacobiana(real_t** jac, real_t* x, lint_t n)
+void jacobiana(tri_AOS* jac, real_t* x, lint_t n)
 {
     if (n <= 0)
     {
@@ -78,26 +78,26 @@ void jacobiana(real_t** jac, real_t* x, lint_t n)
     }
 
     // Primeira linha (i = 0)
-    jac[0][0] = -4.0 * x[0] + 3.0; // df_1 / dx_1
+    jac[0].p = -4.0 * x[0] + 3.0; // df_1 / dx_1
     if (n > 1)
     {
-        jac[0][1] = -2.0; // df_1 / dx_2  
+        jac[0].s = -2.0; // df_1 / dx_2  
     }
     
     // Linhas intermediarias (i = 1, …, n-2)
     for (lint_t i = 1; i < n - 1; i++)
     {
-        jac[i][i - 1] = -1.0; // Subdiagonal, df_i / dx_(i-1)
-        jac[i][i] = -4.0 * x[i] + 3.0; // Diagonal principal, df_i / dx_i
-        jac[i][i + 1] = -2.0; // Superdiagonal, df_i / dx_(i+1)
+        jac[i].i = -1.0; // Subdiagonal, df_i / dx_(i-1)
+        jac[i].p = -4.0 * x[i] + 3.0; // Diagonal principal, df_i / dx_i
+        jac[i].s = -2.0; // Superdiagonal, df_i / dx_(i+1)
     }
 
     // Ultima linha (i = n - 1)
-    if (n > 1)
+if (n > 1)
     {
-        jac[n - 1][n - 2] = -1.0; // df_n / dx_(n-1)
-        jac[n - 1][n - 1] = -4.0 * x[n - 1] + 3.0; // df_n / dx_n
-    }
+        jac[n - 1].i = -1.0;
+        jac[n - 1].p = -4.0 * x[n - 1] + 3.0;
+    }   
 }
 
 /*
@@ -127,7 +127,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         // Aloca vetores e matrizes auxiliares
         real_t* delta = alocaVetor(n);
         real_t* fx = alocaVetor(n);
-        real_t** jac = alocaMatrizInicializada(n, n, 0);
+        tri_AOS* jac = alocaTridiagonalAOS(n);
 
         // Iteracao principal do metodo de Newton: Para i = 0 … max-1:
         for (lint_t i = 0; i < max_it; i++)
@@ -178,8 +178,9 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         // Libera a memoria alocada
         liberaVetor(delta);
         liberaVetor(fx);
-        liberaMatriz(jac, n);
+        // liberaMatriz(jac, n);
 
+        free(jac);
         free(newton_marker);
         free(jac_marker);
         free(linear_marker);
