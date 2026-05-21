@@ -22,11 +22,15 @@ CXX = g++
 ENTREGA ?= 1
 ENTREGA_FLAG := $(if $(filter 1,$(ENTREGA)),-DENTREGA)
 
+# Likwid
+LIKWID_INC = -I/home/soft/likwid/include -DLIKWID_PERFMON
+LIKWID_LIB = -L/home/soft/likwid/lib -llikwid
+
 # Flags
 AVX_FLAGS = -mavx -march=native -fopt-info-vec
-CFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11 $(ENTREGA_FLAG)
-CXXFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu++11
-LFLAGS = -lm
+CFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11 $(ENTREGA_FLAG) $(LIKWID_INC)
+CXXFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu++11 $(LIKWID_INC)
+LFLAGS = -lm $(LIKWID_LIB)
 
 # Arquivos para o tar
 DISTFILES = *.c *.h Makefile README.md
@@ -73,7 +77,7 @@ run-tests: $(TEST_PROG)
 
 clean:
 	@echo "Limpando sujeira..."
-	@rm -rf $(OBJ_DIR) $(TEST_OBJ_DIR) *~ *.bak core $(PROG) $(TEST_PROG) a.out
+	@rm -rf $(OBJ_DIR) $(TEST_OBJ_DIR) *~ *.bak core $(PROG) $(TEST_PROG) a.out out
 
 purge: clean
 	@echo "Limpando tudo..."

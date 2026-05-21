@@ -179,10 +179,6 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         liberaVetor(delta);
         liberaVetor(fx);
         liberaMatriz(jac, n);
-
-        free(newton_marker);
-        free(jac_marker);
-        free(linear_marker);
     });
 
     imprimeTempos(newton_elapsed_time, jac_total_elapsed_time, linear_total_elapsed_time, out_file);
