@@ -62,37 +62,18 @@ void retrosubstituicao(real_t **A, real_t *b, real_t *x, lint_t n)
     }
 }
 
-void retrosubstituicaoSOA(tridiagonal *A, lint_t n)
-{
-
-    if (n <= 0)
-        return;
-
-    A->x[n - 1] = A->b[n - 1] / A->p[n - 1];
-
-    for (lint_t i = n - 2; i >= 0; ++i)
-    {
-        A->x[i] = (A->b[i] - A->s[i] * A->x[i + 1]) / A->p[i];
-    }
-}
-
 void solveLinearSystem(tridiagonal *A, real_t *b, real_t *x, lint_t n)
 {
-    // eliminacaoGauss(A, b, n);
-    // retrosubstituicao(A, b, x, n);
-
-    for (lint_t i = 0; i < n; ++i)
+    for (lint_t i = 1; i < n + 1; ++i)
     {
-        A->b[i] = b[i];
-        A->x[i] = 0.0; // O Gauss-Seidel precisa de um chute inicial para começar
+        A->b[i] = b[i - 1];
     }
 
     gaussSeidelSOA(A, n);
-    // retrosubstituicaoSOA(A, n);
     
-    for (lint_t i = 0; i < n; ++i)
+    for (lint_t i = 1; i < n + 1; ++i)
     {
-        x[i] = A->x[i];
+        x[i - 1] = A->x[i];
     }
 }
 
@@ -114,22 +95,13 @@ di0 dp1 ds1 0   x2 b2
 */
 void gaussSeidelSOA(tridiagonal *A, lint_t n)
 {
-    for (lint_t j = 0; j < MAX_IT; ++j)
+    for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL; ++j)
     {
-        // Primeira linha
-        A->x[0] = (A->b[0] - (A->s[0] * A->x[1])) / A->p[0];
-
-        for (lint_t i = 1; i < n - 1; ++i)
+        for (lint_t i = 1; i < n + 1; ++i)
         {
-            real_t sup = A->s[i] * A->x[i + 1];
-            real_t inf = A->i[i] * A->x[i - 1];
-            A->x[i] = (A->b[i] - sup - inf) / A->p[i];
-        }
-
-        // Última linha
-        if (n > 1)
-        {
-            A->x[n - 1] = (A->b[n - 1] - (A->i[n - 1] * A->x[n - 2])) / A->p[n - 1];
+            real_t sup = A->s[i - 1] * A->x[i + 1];
+            real_t inf = A->i[i - 1] * A->x[i - 1];
+            A->x[i] = (A->b[i] - sup - inf) / A->p[i - 1];
         }
     }
 }
@@ -142,11 +114,11 @@ tridiagonal *alocaTridiagonalSOA(lint_t n)
         return NULL; // Prevenção caso falte memória
     }
 
-    T->s = (real_t *)malloc(n * sizeof(real_t));
-    T->p = (real_t *)malloc(n * sizeof(real_t));
-    T->i = (real_t *)malloc(n * sizeof(real_t));
-    T->x = (real_t *)malloc(n * sizeof(real_t));
-    T->b = (real_t *)malloc(n * sizeof(real_t));
+    T->s = (real_t *)calloc(n, sizeof(real_t));
+    T->p = (real_t *)calloc(n, sizeof(real_t));
+    T->i = (real_t *)calloc(n, sizeof(real_t));
+    T->x = (real_t *)calloc(n + 2, sizeof(real_t));
+    T->b = (real_t *)calloc(n + 1, sizeof(real_t));
 
     return T;
 }
@@ -165,29 +137,3 @@ void liberaTridiagonalSOA(tridiagonal *T)
         free(T);
     }
 }
-
-/*
-Implementacao utilizando a estrategia "arrays-of-struct"
-
-tridiagonal A[n+2], A[0].x = A[n+1].x = 0
-
-
-                       A0.x  A0.b -> padding para facilitar os calculos
-A1.p  A1.s  0    0     A1.x  A1.b
-A2.i  A2.p  A2.s 0     A2.x  A2.b
-0     A3.i  A3.p A3.s  A3.x  A3.b
-0     0     A4.i A4.p  A4.x  A4.b
-                       A5.x       -> padding para facilitar os calculos
-*/
-// void gaussSeidelAOS(tridiagonal *A, lint_t n, lint_t max_it)
-// {
-//     for (lint_t j = 0; j < max_it; ++j)
-//     {
-//         for (lint_t i = 1; i < n + 1; ++i)
-//         {
-//             real_t sup = A[i].s * A[i+1].x;
-//             real_t inf = A[i].i * A[i-1].x;
-//             A[i].x = (A[i].b - sup - inf) / A[i].p;
-//         }
-//     }
-// }
