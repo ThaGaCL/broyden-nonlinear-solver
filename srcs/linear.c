@@ -62,35 +62,19 @@ void retrosubstituicao(real_t **A, real_t *b, real_t *x, lint_t n)
     }
 }
 
-void retrosubstituicaoAOS(tri_AOS *A, real_t *b, real_t *x, lint_t n)
-{
-    if(n <= 0)
-        return;
-
-    x[n - 1] = b[n - 1] / A[n - 1].p;
-    
-    for (lint_t i = n - 2; i >= 0; i--){
-        x[i] = (b[i] - A[i].s * x[i + 1]) / A[i].p;
-    }
-}
-
 void solveLinearSystem(tri_AOS *A, real_t *b, real_t *x, lint_t n)
-{
-    // eliminacaoGauss(A, b, n);
-    // retrosubstituicao(A, b, x, n);
-    for (lint_t i = 0; i < n; ++i)
+{    
+    for (lint_t i = 1; i < n + 1; ++i)
     {
-        A[i].b = b[i];
-        A[i].x = 0.0;
+        A[i].b = b[i - 1];
     }
 
     gaussSeidelAOS(A, n);
 
-    for (lint_t i = 0; i < n; ++i)
+    for (lint_t i = 1; i < n + 1; ++i)
     {
-        x[i] = A[i].x;
+        x[i - 1] = A[i].x;
     }
-
 }
 
 /*
@@ -109,9 +93,9 @@ di0 dp1 ds1 0   x2 b2
 0   0   di2 dp2 x4 b4
                 x5    -> padding para facilitar os calculos
 */
-void gaussSeidelSOA(real_t *ds, real_t *dp, real_t *di, real_t *b, real_t *x, lint_t n, lint_t max_it)
+void gaussSeidelSOA(real_t *ds, real_t *dp, real_t *di, real_t *b, real_t *x, lint_t n)
 {
-    for (lint_t j = 0; j < max_it; ++j)
+    for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL; ++j)
     {
         for (lint_t i = 1; i < n + 1; ++i)
         {
@@ -137,26 +121,19 @@ A2.i  A2.p  A2.s 0     A2.x  A2.b
 */
 void gaussSeidelAOS(tri_AOS *A, lint_t n)
 {
-    for (lint_t j = 0; j < MAX_IT; ++j)
+    for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL; ++j)
     {
-        A[0].x = (A[0].b - (A[0].s * A[1].x)) / A[0].p; // Primeira Linha
-
-        for (lint_t i = 1; i < n - 1; ++i)
+        for (lint_t i = 1; i < n + 1; ++i)
         {
             real_t sup = A[i].s * A[i + 1].x;
             real_t inf = A[i].i * A[i - 1].x;
             A[i].x = (A[i].b - sup - inf) / A[i].p;
-        }
-
-        // Ultima LInha
-        if (n > 1)
-        {
-            A[n - 1].x = (A[n - 1].b - (A[n - 1].i * A[n - 2].x)) / A[n - 1].p;
         }
     }
 }
 
 tri_AOS *alocaTridiagonalAOS(lint_t n)
 {
-    return (tri_AOS *)malloc(sizeof(tri_AOS) * n);
+    // Aloca n + 2 elementos para incluir os padding e zera os valores necessarios no gaussSeidelAOS
+    return (tri_AOS *)calloc(n + 2, sizeof(tri_AOS));
 }

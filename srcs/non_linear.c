@@ -77,26 +77,26 @@ void jacobiana(tri_AOS* jac, real_t* x, lint_t n)
         return; // Nao faz nada caso o vetor seja vazio
     }
 
-    // Primeira linha (i = 0)
-    jac[0].p = -4.0 * x[0] + 3.0; // df_1 / dx_1
+    // Primeira linha (i = 1 por causa do padding no gaussSeidelAOS)
+    jac[1].p = -4.0 * x[0] + 3.0; // df_1 / dx_1
     if (n > 1)
     {
-        jac[0].s = -2.0; // df_1 / dx_2  
+        jac[1].s = -2.0; // df_1 / dx_2  
     }
     
-    // Linhas intermediarias (i = 1, …, n-2)
-    for (lint_t i = 1; i < n - 1; i++)
+    // Linhas intermediarias (i = 2, …, n-1, por causa do padding no gaussSeidelAOS)
+    for (lint_t i = 2; i < n; i++)
     {
         jac[i].i = -1.0; // Subdiagonal, df_i / dx_(i-1)
         jac[i].p = -4.0 * x[i] + 3.0; // Diagonal principal, df_i / dx_i
         jac[i].s = -2.0; // Superdiagonal, df_i / dx_(i+1)
     }
 
-    // Ultima linha (i = n - 1)
-if (n > 1)
+    // Ultima linha (i = n por causa do padding no gaussSeidelAOS)
+    if (n > 1)
     {
-        jac[n - 1].i = -1.0;
-        jac[n - 1].p = -4.0 * x[n - 1] + 3.0;
+        jac[n].i = -1.0;
+        jac[n].p = -4.0 * x[n - 1] + 3.0;
     }   
 }
 
@@ -178,7 +178,6 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         // Libera a memoria alocada
         liberaVetor(delta);
         liberaVetor(fx);
-        // liberaMatriz(jac, n);
 
         free(jac);
         free(newton_marker);
