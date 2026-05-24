@@ -125,8 +125,11 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         }
 
         // Aloca vetores e matrizes auxiliares
-        real_t* delta = alocaVetor(n);
-        real_t* fx = alocaVetor(n);
+        // real_t* delta = alocaVetor(n);
+        // real_t* fx = alocaVetor(n);
+        // delta == jac.x
+        // fx == jac.b
+        
         tridiagonal* jac = alocaTridiagonalSOA(n);
 
         // Iteracao principal do metodo de Newton: Para i = 0 … max-1:
@@ -138,10 +141,10 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             #endif
 
             // Calcula broyden: F(X(i))
-            broyden(fx, X, n);
+            broyden(jac->b, X, n);
 
             // Solucao encontrada: Se || F(X(i)) || < 𝜺1 devolva X(i)
-            if (norm(fx, n) < epsilon)
+            if (norm(jac->b, n) < epsilon)
             {
                 break; // Devolve X(i), X(i) e o vetor atual
             }
@@ -149,23 +152,23 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             // Inverte Fx: -F(X(i))
             for (lint_t j = 0; j < n; j++)
             {
-                fx[j] = -fx[j];
+                jac->b[j] = -jac->b[j];
             }
 
             // Calcula a jacobiana: J(X(i))
             jac_total_elapsed_time += MEDE_TRECHO(jac_marker, jacobiana(jac, X, n));
 
             // Resolve o sistema linear: J(X(i))𝚫(i) = -F(X(i)) ==> Ax = b ==> J=A; -Fx=b; delta=x
-            linear_total_elapsed_time += MEDE_TRECHO(linear_marker, solveLinearSystem(jac, fx, delta, n));
+            linear_total_elapsed_time += MEDE_TRECHO(linear_marker, solveLinearSystem(jac, jac->b, jac->x, n));
 
             // Atualiza a solucao: X(i+1) = X(i) + 𝚫(i)
             for (lint_t j = 0; j < n; j++)
             {
-                X[j] += delta[j];
+                X[j] += jac->x[j];
             }
 
             // Solucao encontrada: Se || 𝚫(i) || < 𝜺2 devolva X(i+1)
-            if (norm(delta, n) < epsilon)
+            if (norm(jac->x, n) < epsilon)
             {
                 break; // Devolve X(i+1), X ja foi atualizado
             }
@@ -176,8 +179,9 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         #endif
 
         // Libera a memoria alocada
-        liberaVetor(delta);
-        liberaVetor(fx);
+        // liberaVetor(delta);
+        // liberaVetor(fx);
+
         liberaTridiagonalSOA(jac);
         
         free(newton_marker);

@@ -23,8 +23,11 @@ ENTREGA ?= 1
 ENTREGA_FLAG := $(if $(filter 1,$(ENTREGA)),-DENTREGA)
 
 # Likwid
-LIKWID_INC = -I/home/soft/likwid/include -DLIKWID_PERFMON
-LIKWID_LIB = -L/home/soft/likwid/lib -llikwid
+# LIKWID_INC = -I/home/soft/likwid/include -DLIKWID_PERFMON
+# LIKWID_LIB = -L/home/soft/likwid/lib -llikwid
+
+LIKWID_INC = 
+LIKWID_LIB = 
 
 # Flags
 AVX_FLAGS = -mavx -march=native -fopt-info-vec

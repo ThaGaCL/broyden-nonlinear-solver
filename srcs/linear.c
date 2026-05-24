@@ -64,17 +64,17 @@ void retrosubstituicao(real_t **A, real_t *b, real_t *x, lint_t n)
 
 void solveLinearSystem(tridiagonal *A, real_t *b, real_t *x, lint_t n)
 {
-    for (lint_t i = 1; i < n + 1; ++i)
-    {
-        A->b[i] = b[i - 1];
-    }
+    // for (lint_t i = 1; i < n + 1; ++i)
+    // {
+    //     A->b[i] = b[i - 1];
+    // }
 
     gaussSeidelSOA(A, n);
     
-    for (lint_t i = 1; i < n + 1; ++i)
-    {
-        x[i - 1] = A->x[i];
-    }
+    // for (lint_t i = 1; i < n + 1; ++i)
+    // {
+    //     x[i - 1] = A->x[i];
+    // }
 }
 
 /*
