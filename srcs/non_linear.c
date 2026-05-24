@@ -141,10 +141,10 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             #endif
 
             // Calcula broyden: F(X(i))
-            broyden(jac->b, X, n);
+            broyden(&jac->b[1], X, n);
 
             // Solucao encontrada: Se || F(X(i)) || < 𝜺1 devolva X(i)
-            if (norm(jac->b, n) < epsilon)
+            if (norm(&jac->b[1], n) < epsilon)
             {
                 break; // Devolve X(i), X(i) e o vetor atual
             }
@@ -164,11 +164,11 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             // Atualiza a solucao: X(i+1) = X(i) + 𝚫(i)
             for (lint_t j = 0; j < n; j++)
             {
-                X[j] += jac->x[j];
+                X[j] += jac->x[j + 1];
             }
 
             // Solucao encontrada: Se || 𝚫(i) || < 𝜺2 devolva X(i+1)
-            if (norm(jac->x, n) < epsilon)
+            if (norm(&jac->x[1], n) < epsilon)
             {
                 break; // Devolve X(i+1), X ja foi atualizado
             }
