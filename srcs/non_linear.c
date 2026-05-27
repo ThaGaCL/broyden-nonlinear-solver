@@ -123,13 +123,8 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         if (out_file == NULL) {
             out_file = stdout;
         }
-
-        // Aloca vetores e matrizes auxiliares
-        // real_t* delta = alocaVetor(n);
-        // real_t* fx = alocaVetor(n);
-        // delta == jac.x
-        // fx == jac.b
         
+        // delta: jac->x; fx: jac->b; jacobiana: jac->s, jac->p, jac->i
         tridiagonal* jac = alocaTridiagonalSOA(n);
 
         // Iteracao principal do metodo de Newton: Para i = 0 … max-1:
@@ -150,7 +145,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             }
             
             // Inverte Fx: -F(X(i))
-            for (lint_t j = 0; j < n; j++)
+            for (lint_t j = 0; j < n + 2; j++)
             {
                 jac->b[j] = -jac->b[j];
             }
@@ -159,7 +154,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             jac_total_elapsed_time += MEDE_TRECHO(jac_marker, jacobiana(jac, X, n));
 
             // Resolve o sistema linear: J(X(i))𝚫(i) = -F(X(i)) ==> Ax = b ==> J=A; -Fx=b; delta=x
-            linear_total_elapsed_time += MEDE_TRECHO(linear_marker, solveLinearSystem(jac, jac->b, jac->x, n));
+            linear_total_elapsed_time += MEDE_TRECHO(linear_marker, solveLinearSystem(jac, n));
 
             // Atualiza a solucao: X(i+1) = X(i) + 𝚫(i)
             for (lint_t j = 0; j < n; j++)
@@ -178,15 +173,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         imprimeIteracao(X, n, out_file); // Imprime a iteracao final
         #endif
 
-        // Libera a memoria alocada
-        // liberaVetor(delta);
-        // liberaVetor(fx);
-
         liberaTridiagonalSOA(jac);
-        
-        // free(newton_marker);
-        // free(jac_marker);
-        // free(linear_marker);
     });
 
     imprimeTempos(newton_elapsed_time, jac_total_elapsed_time, linear_total_elapsed_time, out_file);

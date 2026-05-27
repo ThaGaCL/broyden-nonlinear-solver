@@ -131,7 +131,7 @@ void liberaMatriz(real_t** matriz, lint_t linhas)
 */
 void imprimeIteracao(real_t* X, lint_t n, FILE* out)
 {
-    if (!X || n <= 0) return;
+    if (X == NULL || n <= 0) return;
 
     for (lint_t i = 0; i < n; ++i)
     {

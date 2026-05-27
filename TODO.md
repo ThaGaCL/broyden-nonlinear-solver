@@ -1,6 +1,5 @@
 ## TO-DO
 - [ ] Flag para usar o path certo no makefile
-- [ ] Pull main em todas as outras branchs
 - [ ] Verificar saida soa sem copia
 
 - [ ] Testes maiores para o soa com copia e o aos com copia
