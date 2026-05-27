@@ -1,78 +1,84 @@
-#! /usr/bin/env python3
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
 
-from string import *
-from math import *
-import os, re, sys, csv
-
-# campos = { 
-#     "L2": [("L2", r"L2 miss ratio")], 
-#     "FLOPS_DP": [("FLOPS_DP", r"DP \[*MFLOP/s\]*"), ("FLOPS_AVX", r"AVX DP \[*MFLOP/s\]*")],
-#     "MEM": [("MEM", r"Memory bandwidth")], # Simplificado para ignorar a formatação exata da unidade
-# }
-
-campos = { 
-    "L2": [("L2", r"L2 bandwidth")], 
-    "FLOPS_DP": [("FLOPS_DP", r"DP \[*MFLOP/s\]*"), ("FLOPS_AVX", r"AVX DP \[*MFLOP/s\]*")],
-    "MEM": [("MEM", r"Memory bandwidth")], # Simplificado para ignorar a formatação exata da unidade
+BASE_DIR = 'resultados'
+METRICAS = ['FLOPS_DP', 'L2', 'MEM']
+MARCADORES = ['newton', 'jacobiana', 'sistema_linear']
+TEMPOS = {
+    'newton': 'Tempo Total (ms)',
+    'jacobiana': 'Tempo Jacobiana (ms)',
+    'sistema_linear': 'Tempo SL (ms)'
 }
 
-def lerDados():
-    dados = {}
-    linhas = list(sys.stdin)
-    marker = None
-    tamanho = None
-    grupo = None
-    
-    for linha in linhas:
-        if "TABLE,Region" in linha and "Metric," in linha:
-            partes = linha.split(',')
-            grupo = partes[3]
-            marker, tamanho = re.sub(r"Region ", "", partes[1]).rsplit('_', 1)
-        elif grupo:
-            padroes = campos.get(grupo)
-            for metrica, padrao in padroes:
-                if padrao and re.match(padrao, linha) is not None:
-                    valor = float(linha.split(',')[1])
-                    if marker not in dados:
-                        dados[marker] = {}
-                    if grupo not in dados[marker]:
-                        dados[marker][grupo] = {}
-                    if tamanho not in dados[marker][grupo]:
-                        dados[marker][grupo][tamanho] = {}
-                    dados[marker][grupo][tamanho][metrica] = valor
-    return dados
-
-def formatarDados(dados):
-    for marker in dados:
-        for grupo in dados[marker]:
-            for tamanho in dados[marker][grupo]:
-                if grupo == "CLOCK":
-                   for metrica, valor in dados[marker][grupo][tamanho].items():
-                       if metrica == "TIME":
-                           if valor is not None:
-                               dados[marker][grupo][tamanho][metrica] = valor * 1000
-    return dados
-
-def salvarResultados(dados):
-    os.makedirs("resultados", exist_ok=True)
-    for marker in dados:
-        for grupo in dados[marker]:
-            print(f"Gerando gráfico para {marker} - {grupo}")
-            metricas = [metrica for metrica, _ in campos.get(grupo, [])]
-            plotFile = os.path.join("resultados", f'{marker}_{grupo}.csv')
-            with open(plotFile, "a") as fp:
-                writer = csv.writer(fp)
-                if not os.path.exists(plotFile):
-                    writer.writerow(['tamanho'] + metricas)
-                for tamanho in sorted(dados[marker][grupo], key=lambda x: int(x)):
-                    valores = [tamanho] + [str(dados[marker][grupo][tamanho].get(metrica, '')) for metrica in metricas]
-                    writer.writerow(valores)
-
-
 def main():
-    dados = lerDados()
-    dados = formatarDados(dados)
-    salvarResultados(dados)
+    paths = getVersionPaths()
+    plotTempos(paths)
+    plotMetricas(paths)
 
-if __name__ == "__main__":
+def getVersionPaths():
+    versions = {}
+    for version in os.listdir(BASE_DIR):
+        version_path = os.path.join(BASE_DIR, version)
+        commits = os.listdir(version_path)
+        versions[version] = os.path.join(version_path, commits[0]) # Assumindo que há apenas um commit por versão    
+    return versions
+
+def plotTempos(paths):
+    tempos = {}
+    for version, path in paths.items():
+        file_path = os.path.join(path, 'tempos.csv')
+        if os.path.exists(file_path):
+            tempos[version] = pd.read_csv(file_path)
+    for key, title in TEMPOS.items():
+        plot(
+            data_frames=tempos,
+            title=title,
+            ylabel='Tempo (ms)',
+            x_col='Tamanho',
+            y_col=TEMPOS[key],
+            output_filename=f'tempos_{key}.pdf'
+        )
+
+def plotMetricas(paths):
+    for metrica in METRICAS:
+        for marcador in MARCADORES:
+            values = {}
+            filename = f'{marcador}_{metrica}.csv'           
+            for version, path in paths.items():
+                file_path = os.path.join(path, filename)
+                values[version] = pd.read_csv(file_path, header=None, usecols=[0, 1], names=['N', 'Valor']) # Ignora virgulas no final da linha
+            plot(
+                data_frames=values,
+                title=metrica,
+                ylabel=metrica,
+                x_col='N',
+                y_col='Valor',
+                output_filename=f'{marcador}_{metrica}.pdf'
+            )
+
+def plot(data_frames, title, ylabel, x_col, y_col, output_filename):
+    fig, ax = plt.subplots()
+    ax.set_title(title) 
+    x_vals = set()
+
+    for version, df in data_frames.items():
+        ax.plot(df[x_col], df[y_col], 'o-', label=version)
+        x_vals.update(df[x_col])
+
+    ax.set(xlabel='Tamanho do SNLB (N)', ylabel=ylabel, xscale='log', yscale='log')
+    
+    if x_vals:
+        sorted_x = sorted(x_vals)
+        ax.set_xticks(sorted_x)
+        ax.set_xticklabels(sorted_x, rotation=45)
+        
+    ax.grid(True, which="both", ls="--", alpha=0.5)
+    ax.legend()
+
+    plt.tight_layout()
+    plt.savefig(f'{BASE_DIR}/{output_filename}')
+    plt.close()
+
+if __name__ == '__main__':
     main()

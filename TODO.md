@@ -1,7 +1,12 @@
-## Requisitos do enunciado
-- [ ] Gráficos e métricas do likwid
+## TO-DO
+- [ ] Flag para usar o path certo no makefile
+- [ ] Pull main em todas as outras branchs
+- [ ] Verificar saida soa sem copia
 
-## Otimizar
-- [ ] Qual método aplicar na resolução dos sistemas lineares internos?
-- [ ] Qual estrutura de dados utilizar para representar as matrizes e/ou vetores?
-- [ ] Como calcular a matriz Jacobiana a cada iteração do método?
+- [ ] Testes maiores para o soa com copia e o aos com copia
+- [ ] Testes maiores para o soa sem copia
+
+- [ ] Remover copia aos
+
+- [ ] + 1 otimizacao Nico
+- [ ] + 1 otimizacao Thales
