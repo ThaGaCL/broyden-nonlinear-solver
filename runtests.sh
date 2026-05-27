@@ -28,6 +28,8 @@ GIT_BRANCH=$(git branch --show-current)
 GIT_HASH=$(git rev-parse --short ${BRANCH})
 GIT_DIR=${RESULTS_DIR}/${GIT_BRANCH}/${GIT_HASH}
 
+rm -rf "${RESULTS_DIR}/${GIT_BRANCH}/"* 2>/dev/null
+
 make clean && make
 echo "performance" >/sys/devices/system/cpu/cpufreq/policy${CPU}/scaling_governor
 
@@ -60,8 +62,9 @@ for grupo in $GRUPOS; do
     rm -f ${LIKWID_OUT} ${PROG_OUT}
   done
 
-  ${CMD_DIR}/genplot.py <${LIKWID_LOG}
-  mv ${RESULTS_DIR}/*.csv ${GIT_DIR}/ 2>/dev/null
+  ${CMD_DIR}/gendata.py <${LIKWID_LOG}
+  ${CMD_DIR}/genplot.py
+  mv ${RESULTS_DIR}/*.csv ${RESULTS_DIR}/*.png ${GIT_DIR}/ 2>/dev/null
 done
 
 make clean
