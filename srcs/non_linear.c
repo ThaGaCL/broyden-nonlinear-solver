@@ -145,7 +145,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             }
             
             // Inverte Fx: -F(X(i))
-            for (lint_t j = 0; j < n + 2; j++)
+            for (lint_t j = 0; j < n + 1; j++)
             {
                 jac->b[j] = -jac->b[j];
             }
