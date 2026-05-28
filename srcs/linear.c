@@ -1,7 +1,7 @@
 #include "utils.h"
 #include "linear.h"
 
-void solveLinearSystem(tridiagonal *A, lint_t n)
+void solveLinearSystem(tridiagonal* A, lint_t n)
 {
     gaussSeidelSOA(A, n);
 }
@@ -12,26 +12,26 @@ Implementacao utilizando a estrategia "struct-of-arrays"
 real_t dp[n],
 real_t ds[n],
 real_t di[n],
-real_t x[n+2], x[0] = x[n+1] = 0
-real_t b[n+1]
+real_t x[n],
+real_t b[n]
 
-                x0 b0 -> padding para facilitar os calculos
-dp0 ds0 0   0   x1 b1
-di0 dp1 ds1 0   x2 b2
-0   di1 dp2 ds2 x3 b3
-0   0   di2 dp2 x4 b4
-                x5    -> padding para facilitar os calculos
+dp0 ds0 0   0   x0 b0
+di0 dp1 ds1 0   x1 b1
+0   di1 dp2 ds2 x2 b2
+0   0   di2 dp2 x3 b3
 */
-void gaussSeidelSOA(tridiagonal *A, lint_t n)
+void gaussSeidelSOA(tridiagonal* A, lint_t n)
 {
     for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL; ++j)
     {
-        for (lint_t i = 1; i < n + 1; ++i)
+        A->x[0] = (A->b[0] - A->s[0] * A->x[1]) / A->p[0];
+        for (lint_t i = 1; i < n - 1; ++i)
         {
-            real_t sup = A->s[i - 1] * A->x[i + 1];
+            real_t sup = A->s[i] * A->x[i + 1];
             real_t inf = A->i[i - 1] * A->x[i - 1];
-            A->x[i] = (A->b[i] - sup - inf) / A->p[i - 1];
+            A->x[i] = (A->b[i] - sup - inf) / A->p[i];
         }
+        A->x[n - 1] = (A->b[n - 1] - A->i[n - 2] * A->x[n - 2]) / A->p[n - 1];
     }
 }
 
@@ -46,8 +46,8 @@ tridiagonal *alocaTridiagonalSOA(lint_t n)
     T->s = (real_t *)calloc(n, sizeof(real_t));
     T->p = (real_t *)calloc(n, sizeof(real_t));
     T->i = (real_t *)calloc(n, sizeof(real_t));
-    T->x = (real_t *)calloc(n + 2, sizeof(real_t));
-    T->b = (real_t *)calloc(n + 1, sizeof(real_t));
+    T->x = (real_t *)calloc(n, sizeof(real_t));
+    T->b = (real_t *)calloc(n, sizeof(real_t));
 
     return T;
 }

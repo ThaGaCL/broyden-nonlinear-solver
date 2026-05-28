@@ -135,17 +135,17 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             fprintf(out_file, "#\n"); // Separador entre iteracoes
             #endif
 
-            // Calcula broyden: F(X(i))
-            broyden(&jac->b[1], X, n);
+            // Calcula broyden: -F(X(i))
+            broyden(jac->b, X, n);
 
             // Solucao encontrada: Se || F(X(i)) || < 𝜺1 devolva X(i)
-            if (norm(&jac->b[1], n) < epsilon)
+            if (norm(jac->b, n) < epsilon)
             {
                 break; // Devolve X(i), X(i) e o vetor atual
             }
             
             // Inverte Fx: -F(X(i))
-            for (lint_t j = 0; j < n + 1; j++)
+            for (lint_t j = 0; j < n; j++)
             {
                 jac->b[j] = -jac->b[j];
             }
@@ -159,11 +159,11 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             // Atualiza a solucao: X(i+1) = X(i) + 𝚫(i)
             for (lint_t j = 0; j < n; j++)
             {
-                X[j] += jac->x[j + 1];
+                X[j] += jac->x[j];
             }
 
             // Solucao encontrada: Se || 𝚫(i) || < 𝜺2 devolva X(i+1)
-            if (norm(&jac->x[1], n) < epsilon)
+            if (norm(jac->x, n) < epsilon)
             {
                 break; // Devolve X(i+1), X ja foi atualizado
             }
@@ -173,6 +173,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         imprimeIteracao(X, n, out_file); // Imprime a iteracao final
         #endif
 
+        // Libera a memoria alocada
         liberaTridiagonalSOA(jac);
     });
 

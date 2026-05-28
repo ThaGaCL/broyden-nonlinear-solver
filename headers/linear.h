@@ -16,9 +16,8 @@ typedef struct {
     real_t *b;
 } tridiagonal;
 
-
-void solveLinearSystem(tridiagonal *A, lint_t n);
-void gaussSeidelSOA(tridiagonal *A, lint_t n);
+void solveLinearSystem(tridiagonal* A, lint_t n);
+void gaussSeidelSOA(tridiagonal* A, lint_t n);
 tridiagonal *alocaTridiagonalSOA(lint_t n);
 void liberaTridiagonalSOA(tridiagonal *T);
 
