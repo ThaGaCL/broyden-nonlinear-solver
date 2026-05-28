@@ -1,7 +1,7 @@
 #include "utils.h"
 #include "linear.h"
 
-void solveLinearSystem(tridiagonal* A, lint_t n)
+void solveLinearSystem(matrizSOA* A, lint_t n)
 {
     gaussSeidelSOA(A, n);
 }
@@ -20,7 +20,7 @@ di0 dp1 ds1 0   x1 b1
 0   di1 dp2 ds2 x2 b2
 0   0   di2 dp2 x3 b3
 */
-void gaussSeidelSOA(tridiagonal* A, lint_t n)
+void gaussSeidelSOA(matrizSOA* A, lint_t n)
 {
     for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL; ++j)
     {
@@ -35,32 +35,32 @@ void gaussSeidelSOA(tridiagonal* A, lint_t n)
     }
 }
 
-tridiagonal *alocaTridiagonalSOA(lint_t n)
+matrizSOA *alocaMatrizSOA(lint_t n)
 {
-    tridiagonal *T = (tridiagonal *)malloc(sizeof(tridiagonal));
+    matrizSOA *T = (matrizSOA *)malloc(sizeof(matrizSOA));
     if (T == NULL)
     {
-        return NULL; // Prevenção caso falte memória
+        return NULL; // Prevencao caso falte memória
     }
 
-    T->s = (real_t *)calloc(n, sizeof(real_t));
-    T->p = (real_t *)calloc(n, sizeof(real_t));
-    T->i = (real_t *)calloc(n, sizeof(real_t));
-    T->x = (real_t *)calloc(n, sizeof(real_t));
-    T->b = (real_t *)calloc(n, sizeof(real_t));
+    T->s = alocaVetor(n);
+    T->p = alocaVetor(n);
+    T->i = alocaVetor(n);
+    T->b = alocaVetor(n);
+    T->x = alocaVetor(n);
 
     return T;
 }
 
-void liberaTridiagonalSOA(tridiagonal *T)
+void liberaMatrizSOA(matrizSOA *T)
 {
     if (T != NULL)
     {
         free(T->s);
         free(T->p);
         free(T->i);
-        free(T->x);
         free(T->b);
+        free(T->x);
 
         free(T);
     }
