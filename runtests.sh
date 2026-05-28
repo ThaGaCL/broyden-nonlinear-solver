@@ -9,9 +9,7 @@ PROG=${1:-broyden}
 tipo=${2:-avx}
 CPU=${3:-3}
 GRUPOS="FLOPS_DP L2 MEM"
-TAMANHOS="32 64 128 256 512 1000 2000 4000"
-#TAMANHOS="6000 7000"
-#TAMANHOS="10000"
+TAMANHOS="32 64 128 256 512 1000 2000 4000 6000 7000 10000"
 #TAMANHOS="50000"
 #TAMANHOS="100000"
 LIKWID_LOG="likwid.log"
@@ -63,9 +61,10 @@ for grupo in $GRUPOS; do
   done
 
   ${CMD_DIR}/gendata.py <${LIKWID_LOG}
-  ${CMD_DIR}/genplot.py
-  mv ${RESULTS_DIR}/*.csv ${RESULTS_DIR}/*.png ${GIT_DIR}/ 2>/dev/null
 done
+
+python3 ${CMD_DIR}/genplot.py
+mv ${RESULTS_DIR}/*.csv ${RESULTS_DIR}/*.png ${GIT_DIR}/ 2>/dev/null
 
 make clean
 rm -rf ${OUT_DIR} 2>/dev/null
