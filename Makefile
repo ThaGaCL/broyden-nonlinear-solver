@@ -31,7 +31,7 @@ LIKWID_LIB = -L/home/soft/likwid/lib -llikwid
 
 # Flags
 AVX_FLAGS = -mavx -march=native -fopt-info-vec
-CFLAGS = -g -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11 $(ENTREGA_FLAG) $(LIKWID_INC)
+CFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11 $(ENTREGA_FLAG) $(LIKWID_INC)
 CXXFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu++11 $(LIKWID_INC)
 LFLAGS = -lm $(LIKWID_LIB)
 

@@ -43,11 +43,11 @@ matrizSOA *alocaMatrizSOA(lint_t n)
         return NULL; // Prevencao caso falte memória
     }
 
-    T->s = alocaVetor(n);
-    T->p = alocaVetor(n);
-    T->i = alocaVetor(n);
-    T->b = alocaVetor(n);
-    T->x = alocaVetor(n);
+    T->s = (real_t *)calloc(n, sizeof(real_t));
+    T->p = (real_t *)calloc(n, sizeof(real_t));
+    T->i = (real_t *)calloc(n, sizeof(real_t));
+    T->x = (real_t *)calloc(n, sizeof(real_t));
+    T->b = (real_t *)calloc(n, sizeof(real_t));
 
     return T;
 }
@@ -59,8 +59,8 @@ void liberaMatrizSOA(matrizSOA *T)
         free(T->s);
         free(T->p);
         free(T->i);
-        free(T->b);
         free(T->x);
+        free(T->b);
 
         free(T);
     }
