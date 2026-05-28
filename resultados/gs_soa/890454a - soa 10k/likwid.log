@@ -1,0 +1,759 @@
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692920088 GHz,
+TABLE,Region newton_32,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.013657,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,59000190
+MAX_CPU_CLOCK,FIXC2,50897090
+RETIRED_INSTRUCTIONS,PMC0,9814162
+CPU_CLOCKS_UNHALTED,PMC1,13001870
+DRAM_CHANNEL_0,DFC0,166174
+DRAM_CHANNEL_1,DFC1,156927
+TABLE,Region newton_32,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0137,
+Runtime unhalted [s],0.0160,
+Clock [MHz],4280.8535,
+CPI,1.3248,
+Memory bandwidth [MBytes/s],6056.6592,
+Memory data volume [GBytes],0.0827,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692920088 GHz,
+TABLE,Region jacobiana_32,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000003,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,11755320
+MAX_CPU_CLOCK,FIXC2,10221060
+RETIRED_INSTRUCTIONS,PMC0,141386
+CPU_CLOCKS_UNHALTED,PMC1,586457
+DRAM_CHANNEL_0,DFC0,35585
+DRAM_CHANNEL_1,DFC1,33485
+TABLE,Region jacobiana_32,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],2.805523e-06,
+Runtime unhalted [s],0.0032,
+Clock [MHz],4247.2559,
+CPI,4.1479,
+Memory bandwidth [MBytes/s],6.302540e+06,
+Memory data volume [GBytes],0.0177,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692920088 GHz,
+TABLE,Region sistema_linear_32,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.002290,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,20529570
+MAX_CPU_CLOCK,FIXC2,17945410
+RETIRED_INSTRUCTIONS,PMC0,7465551
+CPU_CLOCKS_UNHALTED,PMC1,10213070
+DRAM_CHANNEL_0,DFC0,50839
+DRAM_CHANNEL_1,DFC1,47780
+TABLE,Region sistema_linear_32,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0023,
+Runtime unhalted [s],0.0056,
+Clock [MHz],4224.7049,
+CPI,1.3680,
+Memory bandwidth [MBytes/s],11024.6664,
+Memory data volume [GBytes],0.0252,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692954765 GHz,
+TABLE,Region newton_64,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.017857,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,77033530
+MAX_CPU_CLOCK,FIXC2,66380780
+RETIRED_INSTRUCTIONS,PMC0,18860610
+CPU_CLOCKS_UNHALTED,PMC1,28136400
+DRAM_CHANNEL_0,DFC0,98959
+DRAM_CHANNEL_1,DFC1,94361
+TABLE,Region newton_64,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0179,
+Runtime unhalted [s],0.0209,
+Clock [MHz],4285.5981,
+CPI,1.4918,
+Memory bandwidth [MBytes/s],2771.3832,
+Memory data volume [GBytes],0.0495,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692954765 GHz,
+TABLE,Region jacobiana_64,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000003,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,12840460
+MAX_CPU_CLOCK,FIXC2,11061780
+RETIRED_INSTRUCTIONS,PMC0,142649
+CPU_CLOCKS_UNHALTED,PMC1,599651
+DRAM_CHANNEL_0,DFC0,17339
+DRAM_CHANNEL_1,DFC1,17344
+TABLE,Region jacobiana_64,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],2.635017e-06,
+Runtime unhalted [s],0.0035,
+Clock [MHz],4286.7638,
+CPI,4.2037,
+Memory bandwidth [MBytes/s],3.369560e+06,
+Memory data volume [GBytes],0.0089,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692954765 GHz,
+TABLE,Region sistema_linear_64,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.005700,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,35752090
+MAX_CPU_CLOCK,FIXC2,30707080
+RETIRED_INSTRUCTIONS,PMC0,14667810
+CPU_CLOCKS_UNHALTED,PMC1,24602410
+DRAM_CHANNEL_0,DFC0,30395
+DRAM_CHANNEL_1,DFC1,29509
+TABLE,Region sistema_linear_64,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0057,
+Runtime unhalted [s],0.0097,
+Clock [MHz],4299.6876,
+CPI,1.6773,
+Memory bandwidth [MBytes/s],2690.5466,
+Memory data volume [GBytes],0.0153,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692964901 GHz,
+TABLE,Region newton_128,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.025339,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,108363700
+MAX_CPU_CLOCK,FIXC2,93987660
+RETIRED_INSTRUCTIONS,PMC0,36955740
+CPU_CLOCKS_UNHALTED,PMC1,58441610
+DRAM_CHANNEL_0,DFC0,378773
+DRAM_CHANNEL_1,DFC1,364701
+TABLE,Region newton_128,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0253,
+Runtime unhalted [s],0.0293,
+Clock [MHz],4257.8285,
+CPI,1.5814,
+Memory bandwidth [MBytes/s],7511.3766,
+Memory data volume [GBytes],0.1903,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692964901 GHz,
+TABLE,Region jacobiana_128,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000004,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,12167780
+MAX_CPU_CLOCK,FIXC2,10507520
+RETIRED_INSTRUCTIONS,PMC0,145659
+CPU_CLOCKS_UNHALTED,PMC1,612353
+DRAM_CHANNEL_0,DFC0,48274
+DRAM_CHANNEL_1,DFC1,48756
+TABLE,Region jacobiana_128,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],3.868171e-06,
+Runtime unhalted [s],0.0033,
+Clock [MHz],4276.4786,
+CPI,4.2040,
+Memory bandwidth [MBytes/s],6.421557e+06,
+Memory data volume [GBytes],0.0248,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692964901 GHz,
+TABLE,Region sistema_linear_128,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.012477,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,65715210
+MAX_CPU_CLOCK,FIXC2,56763250
+RETIRED_INSTRUCTIONS,PMC0,29072160
+CPU_CLOCKS_UNHALTED,PMC1,53381120
+DRAM_CHANNEL_0,DFC0,191317
+DRAM_CHANNEL_1,DFC1,180723
+TABLE,Region sistema_linear_128,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0125,
+Runtime unhalted [s],0.0178,
+Clock [MHz],4275.3712,
+CPI,1.8362,
+Memory bandwidth [MBytes/s],7633.3452,
+Memory data volume [GBytes],0.0952,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692971239 GHz,
+TABLE,Region newton_256,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.039564,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,170757400
+MAX_CPU_CLOCK,FIXC2,146600100
+RETIRED_INSTRUCTIONS,PMC0,73177230
+CPU_CLOCKS_UNHALTED,PMC1,118702700
+DRAM_CHANNEL_0,DFC0,183468
+DRAM_CHANNEL_1,DFC1,180626
+TABLE,Region newton_256,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0396,
+Runtime unhalted [s],0.0462,
+Clock [MHz],4301.5125,
+CPI,1.6221,
+Memory bandwidth [MBytes/s],2355.8974,
+Memory data volume [GBytes],0.0932,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692971239 GHz,
+TABLE,Region jacobiana_256,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000005,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,12156530
+MAX_CPU_CLOCK,FIXC2,10397370
+RETIRED_INSTRUCTIONS,PMC0,151987
+CPU_CLOCKS_UNHALTED,PMC1,612060
+DRAM_CHANNEL_0,DFC0,16035
+DRAM_CHANNEL_1,DFC1,15562
+TABLE,Region jacobiana_256,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],5.440342e-06,
+Runtime unhalted [s],0.0033,
+Clock [MHz],4317.7953,
+CPI,4.0271,
+Memory bandwidth [MBytes/s],1.486824e+06,
+Memory data volume [GBytes],0.0081,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692971239 GHz,
+TABLE,Region sistema_linear_256,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.026132,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,123748300
+MAX_CPU_CLOCK,FIXC2,106689900
+RETIRED_INSTRUCTIONS,PMC0,57880280
+CPU_CLOCKS_UNHALTED,PMC1,110982600
+DRAM_CHANNEL_0,DFC0,88398
+DRAM_CHANNEL_1,DFC1,87024
+TABLE,Region sistema_linear_256,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0261,
+Runtime unhalted [s],0.0335,
+Clock [MHz],4283.4318,
+CPI,1.9175,
+Memory bandwidth [MBytes/s],1718.5086,
+Memory data volume [GBytes],0.0449,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692963163 GHz,
+TABLE,Region newton_512,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.068739,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,294924200
+MAX_CPU_CLOCK,FIXC2,254224100
+RETIRED_INSTRUCTIONS,PMC0,145612000
+CPU_CLOCKS_UNHALTED,PMC1,239616300
+DRAM_CHANNEL_0,DFC0,463631
+DRAM_CHANNEL_1,DFC1,445600
+TABLE,Region newton_512,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0687,
+Runtime unhalted [s],0.0799,
+Clock [MHz],4284.1894,
+CPI,1.6456,
+Memory bandwidth [MBytes/s],3386.1662,
+Memory data volume [GBytes],0.2328,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692963163 GHz,
+TABLE,Region jacobiana_512,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000009,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,12431490
+MAX_CPU_CLOCK,FIXC2,10672460
+RETIRED_INSTRUCTIONS,PMC0,164859
+CPU_CLOCKS_UNHALTED,PMC1,646886
+DRAM_CHANNEL_0,DFC0,36330
+DRAM_CHANNEL_1,DFC1,33781
+TABLE,Region jacobiana_512,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],8.940457e-06,
+Runtime unhalted [s],0.0034,
+Clock [MHz],4301.6357,
+CPI,3.9239,
+Memory bandwidth [MBytes/s],2.007550e+06,
+Memory data volume [GBytes],0.0179,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692963163 GHz,
+TABLE,Region sistema_linear_512,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.053697,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,242178300
+MAX_CPU_CLOCK,FIXC2,208793400
+RETIRED_INSTRUCTIONS,PMC0,115496300
+CPU_CLOCKS_UNHALTED,PMC1,226262300
+DRAM_CHANNEL_0,DFC0,305097
+DRAM_CHANNEL_1,DFC1,295880
+TABLE,Region sistema_linear_512,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0537,
+Runtime unhalted [s],0.0656,
+Clock [MHz],4283.4474,
+CPI,1.9590,
+Memory bandwidth [MBytes/s],2865.1416,
+Memory data volume [GBytes],0.1539,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692894582 GHz,
+TABLE,Region newton_1000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.124973,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,535855300
+MAX_CPU_CLOCK,FIXC2,461969400
+RETIRED_INSTRUCTIONS,PMC0,283691800
+CPU_CLOCKS_UNHALTED,PMC1,472923000
+DRAM_CHANNEL_0,DFC0,899624
+DRAM_CHANNEL_1,DFC1,864515
+TABLE,Region newton_1000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.1250,
+Runtime unhalted [s],0.1451,
+Clock [MHz],4283.5243,
+CPI,1.6670,
+Memory bandwidth [MBytes/s],3613.7343,
+Memory data volume [GBytes],0.4516,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692894582 GHz,
+TABLE,Region jacobiana_1000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000014,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,12564340
+MAX_CPU_CLOCK,FIXC2,10785020
+RETIRED_INSTRUCTIONS,PMC0,189176
+CPU_CLOCKS_UNHALTED,PMC1,709668
+DRAM_CHANNEL_0,DFC0,37179
+DRAM_CHANNEL_1,DFC1,33593
+TABLE,Region jacobiana_1000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],1.421704e-05,
+Runtime unhalted [s],0.0034,
+Clock [MHz],4302.1509,
+CPI,3.7514,
+Memory bandwidth [MBytes/s],1.274360e+06,
+Memory data volume [GBytes],0.0181,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692894582 GHz,
+TABLE,Region sistema_linear_1000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.106450,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,469330000
+MAX_CPU_CLOCK,FIXC2,404691900
+RETIRED_INSTRUCTIONS,PMC0,225327000
+CPU_CLOCKS_UNHALTED,PMC1,448869500
+DRAM_CHANNEL_0,DFC0,673969
+DRAM_CHANNEL_1,DFC1,648632
+TABLE,Region sistema_linear_1000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.1065,
+Runtime unhalted [s],0.1271,
+Clock [MHz],4282.7302,
+CPI,1.9921,
+Memory bandwidth [MBytes/s],3180.6972,
+Memory data volume [GBytes],0.3386,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692961629 GHz,
+TABLE,Region newton_2000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.237208,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,1016746000
+MAX_CPU_CLOCK,FIXC2,876364500
+RETIRED_INSTRUCTIONS,PMC0,566904700
+CPU_CLOCKS_UNHALTED,PMC1,943041500
+DRAM_CHANNEL_0,DFC0,879037
+DRAM_CHANNEL_1,DFC1,837667
+TABLE,Region newton_2000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.2372,
+Runtime unhalted [s],0.2753,
+Clock [MHz],4284.5231,
+CPI,1.6635,
+Memory bandwidth [MBytes/s],1852.7064,
+Memory data volume [GBytes],0.4395,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692961629 GHz,
+TABLE,Region jacobiana_2000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000025,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,12639650
+MAX_CPU_CLOCK,FIXC2,10853800
+RETIRED_INSTRUCTIONS,PMC0,239213
+CPU_CLOCKS_UNHALTED,PMC1,738671
+DRAM_CHANNEL_0,DFC0,24031
+DRAM_CHANNEL_1,DFC1,23016
+TABLE,Region jacobiana_2000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],2.540044e-05,
+Runtime unhalted [s],0.0034,
+Clock [MHz],4300.5899,
+CPI,3.0879,
+Memory bandwidth [MBytes/s],474166.2743,
+Memory data volume [GBytes],0.0120,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692961629 GHz,
+TABLE,Region sistema_linear_2000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.212216,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,922143400
+MAX_CPU_CLOCK,FIXC2,794951500
+RETIRED_INSTRUCTIONS,PMC0,450389600
+CPU_CLOCKS_UNHALTED,PMC1,896324800
+DRAM_CHANNEL_0,DFC0,636735
+DRAM_CHANNEL_1,DFC1,605675
+TABLE,Region sistema_linear_2000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.2122,
+Runtime unhalted [s],0.2497,
+Clock [MHz],4283.8339,
+CPI,1.9901,
+Memory bandwidth [MBytes/s],1498.7395,
+Memory data volume [GBytes],0.3181,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691661432 GHz,
+TABLE,Region newton_4000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.462413,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,1981198000
+MAX_CPU_CLOCK,FIXC2,1708122000
+RETIRED_INSTRUCTIONS,PMC0,1133329000
+CPU_CLOCKS_UNHALTED,PMC1,1887336000
+DRAM_CHANNEL_0,DFC0,1969143
+DRAM_CHANNEL_1,DFC1,1875773
+TABLE,Region newton_4000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.4624,
+Runtime unhalted [s],0.5367,
+Clock [MHz],4281.8442,
+CPI,1.6653,
+Memory bandwidth [MBytes/s],2128.6125,
+Memory data volume [GBytes],0.9843,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691661432 GHz,
+TABLE,Region jacobiana_4000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000048,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,12510920
+MAX_CPU_CLOCK,FIXC2,10839480
+RETIRED_INSTRUCTIONS,PMC0,339284
+CPU_CLOCKS_UNHALTED,PMC1,834915
+DRAM_CHANNEL_0,DFC0,25151
+DRAM_CHANNEL_1,DFC1,21967
+TABLE,Region jacobiana_4000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],4.779105e-05,
+Runtime unhalted [s],0.0034,
+Clock [MHz],4260.9130,
+CPI,2.4608,
+Memory bandwidth [MBytes/s],252394.7057,
+Memory data volume [GBytes],0.0121,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691661432 GHz,
+TABLE,Region sistema_linear_4000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.424795,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,1832789000
+MAX_CPU_CLOCK,FIXC2,1580370000
+RETIRED_INSTRUCTIONS,PMC0,900514800
+CPU_CLOCKS_UNHALTED,PMC1,1796823000
+DRAM_CHANNEL_0,DFC0,1580931
+DRAM_CHANNEL_1,DFC1,1513365
+TABLE,Region sistema_linear_4000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.4248,
+Runtime unhalted [s],0.4965,
+Clock [MHz],4281.2990,
+CPI,1.9953,
+Memory bandwidth [MBytes/s],1864.7569,
+Memory data volume [GBytes],0.7921,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691853587 GHz,
+TABLE,Region newton_6000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.689358,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,2953472000
+MAX_CPU_CLOCK,FIXC2,2545402000
+RETIRED_INSTRUCTIONS,PMC0,1699755000
+CPU_CLOCKS_UNHALTED,PMC1,2834616000
+DRAM_CHANNEL_0,DFC0,4543850
+DRAM_CHANNEL_1,DFC1,4437198
+TABLE,Region newton_6000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.6894,
+Runtime unhalted [s],0.8000,
+Clock [MHz],4283.7187,
+CPI,1.6677,
+Memory bandwidth [MBytes/s],3335.2041,
+Memory data volume [GBytes],2.2991,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691853587 GHz,
+TABLE,Region jacobiana_6000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000078,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,13128160
+MAX_CPU_CLOCK,FIXC2,11195940
+RETIRED_INSTRUCTIONS,PMC0,439177
+CPU_CLOCKS_UNHALTED,PMC1,1000639
+DRAM_CHANNEL_0,DFC0,36251
+DRAM_CHANNEL_1,DFC1,34291
+TABLE,Region jacobiana_6000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0001,
+Runtime unhalted [s],0.0036,
+Clock [MHz],4329.0018,
+CPI,2.2784,
+Memory bandwidth [MBytes/s],230388.2425,
+Memory data volume [GBytes],0.0181,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691853587 GHz,
+TABLE,Region sistema_linear_6000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.637739,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,2746113000
+MAX_CPU_CLOCK,FIXC2,2366907000
+RETIRED_INSTRUCTIONS,PMC0,1350640000
+CPU_CLOCKS_UNHALTED,PMC1,2697693000
+DRAM_CHANNEL_0,DFC0,3811766
+DRAM_CHANNEL_1,DFC1,3730721
+TABLE,Region sistema_linear_6000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.6377,
+Runtime unhalted [s],0.7438,
+Clock [MHz],4283.3314,
+CPI,1.9973,
+Memory bandwidth [MBytes/s],3027.6920,
+Memory data volume [GBytes],1.9309,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691320653 GHz,
+TABLE,Region newton_7000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.801248,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,3434054000
+MAX_CPU_CLOCK,FIXC2,2959447000
+RETIRED_INSTRUCTIONS,PMC0,1982965000
+CPU_CLOCKS_UNHALTED,PMC1,3304506000
+DRAM_CHANNEL_0,DFC0,3218855
+DRAM_CHANNEL_1,DFC1,3071095
+TABLE,Region newton_7000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.8012,
+Runtime unhalted [s],0.9303,
+Clock [MHz],4283.2984,
+CPI,1.6664,
+Memory bandwidth [MBytes/s],2009.6479,
+Memory data volume [GBytes],1.6102,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691320653 GHz,
+TABLE,Region jacobiana_7000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000098,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,13023800
+MAX_CPU_CLOCK,FIXC2,11156310
+RETIRED_INSTRUCTIONS,PMC0,489183
+CPU_CLOCKS_UNHALTED,PMC1,1043209
+DRAM_CHANNEL_0,DFC0,32109
+DRAM_CHANNEL_1,DFC1,30631
+TABLE,Region jacobiana_7000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0001,
+Runtime unhalted [s],0.0035,
+Clock [MHz],4309.2225,
+CPI,2.1326,
+Memory bandwidth [MBytes/s],163613.9843,
+Memory data volume [GBytes],0.0161,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.691320653 GHz,
+TABLE,Region sistema_linear_7000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.744047,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,3202378000
+MAX_CPU_CLOCK,FIXC2,2759931000
+RETIRED_INSTRUCTIONS,PMC0,1575703000
+CPU_CLOCKS_UNHALTED,PMC1,3147672000
+DRAM_CHANNEL_0,DFC0,2644568
+DRAM_CHANNEL_1,DFC1,2518988
+TABLE,Region sistema_linear_7000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.7440,
+Runtime unhalted [s],0.8675,
+Clock [MHz],4283.0796,
+CPI,1.9976,
+Memory bandwidth [MBytes/s],1776.5957,
+Memory data volume [GBytes],1.3219,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692956626 GHz,
+TABLE,Region newton_10000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],1.139821,
+call count,1,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,4882458000
+MAX_CPU_CLOCK,FIXC2,4208249000
+RETIRED_INSTRUCTIONS,PMC0,2832605000
+CPU_CLOCKS_UNHALTED,PMC1,4721065000
+DRAM_CHANNEL_0,DFC0,7313040
+DRAM_CHANNEL_1,DFC1,7087614
+TABLE,Region newton_10000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],1.1398,
+Runtime unhalted [s],1.3221,
+Clock [MHz],4284.6100,
+CPI,1.6667,
+Memory bandwidth [MBytes/s],3234.3389,
+Memory data volume [GBytes],3.6866,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692956626 GHz,
+TABLE,Region jacobiana_10000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],0.000145,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,13184650
+MAX_CPU_CLOCK,FIXC2,11216880
+RETIRED_INSTRUCTIONS,PMC0,639231
+CPU_CLOCKS_UNHALTED,PMC1,1267022
+DRAM_CHANNEL_0,DFC0,29408
+DRAM_CHANNEL_1,DFC1,29294
+TABLE,Region jacobiana_10000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],0.0001,
+Runtime unhalted [s],0.0036,
+Clock [MHz],4340.8096,
+CPI,1.9821,
+Memory bandwidth [MBytes/s],103378.0249,
+Memory data volume [GBytes],0.0150,
+STRUCT,Info,3
+CPU name:,AMD Ryzen 5 4600G with Radeon Graphics,
+CPU type:,AMD K17 (Zen2) architecture,
+CPU clock:,3.692956626 GHz,
+TABLE,Region sistema_linear_10000,Group 1 Raw,MEM,6
+Region Info,HWThread 3,
+RDTSC Runtime [s],1.063303,
+call count,25,
+Event,Counter,HWThread 3
+ACTUAL_CPU_CLOCK,FIXC1,4570848000
+MAX_CPU_CLOCK,FIXC2,3939913000
+RETIRED_INSTRUCTIONS,PMC0,2250891000
+CPU_CLOCKS_UNHALTED,PMC1,4498935000
+DRAM_CHANNEL_0,DFC0,6416126
+DRAM_CHANNEL_1,DFC1,6216974
+TABLE,Region sistema_linear_10000,Group 1 Metric,MEM,6
+Metric,HWThread 3,
+Runtime (RDTSC) [s],1.0633,
+Runtime unhalted [s],1.2377,
+Clock [MHz],4284.3442,
+CPI,1.9987,
+Memory bandwidth [MBytes/s],3041.5353,
+Memory data volume [GBytes],3.2341,
