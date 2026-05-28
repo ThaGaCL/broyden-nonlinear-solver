@@ -14,14 +14,11 @@ typedef struct {
     real_t *i;
     real_t *x;
     real_t *b;
-} tridiagonal;
+} matrizSOA;
 
-
-void retrosubstitucao(real_t **A, real_t *b, real_t *x, lint_t n);
-void eliminacaoGauss(real_t **A, real_t *b, lint_t n);
-void solveLinearSystem(tridiagonal *A, real_t *b, real_t *x, lint_t n);
-void gaussSeidelSOA(tridiagonal *A, lint_t n);
-tridiagonal *alocaTridiagonalSOA(lint_t n);
-void liberaTridiagonalSOA(tridiagonal *T);
+void solveLinearSystem(matrizSOA *A, real_t* b, real_t *x, lint_t n);
+void gaussSeidelSOA(matrizSOA *A, lint_t n);
+matrizSOA *alocaMatrizSOA(lint_t n);
+void liberaMatrizSOA(matrizSOA *T);
 
 #endif

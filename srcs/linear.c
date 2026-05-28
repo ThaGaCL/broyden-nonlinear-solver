@@ -1,7 +1,7 @@
 #include "utils.h"
 #include "linear.h"
 
-void solveLinearSystem(tridiagonal *A, real_t *b, real_t *x, lint_t n)
+void solveLinearSystem(matrizSOA *A, real_t *b, real_t *x, lint_t n)
 {
     for (lint_t i = 0; i < n; ++i)
     {
@@ -22,15 +22,15 @@ Implementacao utilizando a estrategia "struct-of-arrays"
 real_t dp[n],
 real_t ds[n],
 real_t di[n],
-real_t x[n+2], x[0] = x[n+1] = 0
-real_t b[n+1]
+real_t x[n]
+real_t b[n]
 
 dp0 ds0 0   0   x0 b0
 di0 dp1 ds1 0   x1 b1
 0   di1 dp2 ds2 x2 b2
 0   0   di2 dp2 x3 b3
 */
-void gaussSeidelSOA(tridiagonal *A, lint_t n)
+void gaussSeidelSOA(matrizSOA *A, lint_t n)
 {
     for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL; ++j)
     {
@@ -45,12 +45,12 @@ void gaussSeidelSOA(tridiagonal *A, lint_t n)
     }
 }
 
-tridiagonal *alocaTridiagonalSOA(lint_t n)
+matrizSOA *alocaMatrizSOA(lint_t n)
 {
-    tridiagonal *T = (tridiagonal *)malloc(sizeof(tridiagonal));
+    matrizSOA *T = (matrizSOA *)malloc(sizeof(matrizSOA));
     if (T == NULL)
     {
-        return NULL; // Prevenção caso falte memória
+        return NULL; // Prevencaoo caso falte memoria
     }
 
     T->s = (real_t *)calloc(n, sizeof(real_t));
@@ -62,7 +62,7 @@ tridiagonal *alocaTridiagonalSOA(lint_t n)
     return T;
 }
 
-void liberaTridiagonalSOA(tridiagonal *T)
+void liberaMatrizSOA(matrizSOA *T)
 {
 
     if (T != NULL)

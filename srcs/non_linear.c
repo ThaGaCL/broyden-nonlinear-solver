@@ -70,7 +70,7 @@ J_n(x) = {
 
 jac deve ser inicializada como uma matriz n x n preenchida com zeros antes de chamar a funcao
 */
-void jacobiana(tridiagonal *jac, real_t* x, lint_t n)
+void jacobiana(matrizSOA *jac, real_t* x, lint_t n)
 {
     if (n <= 0)
     {
@@ -127,7 +127,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         // Aloca vetores e matrizes auxiliares
         real_t* delta = alocaVetor(n);
         real_t* fx = alocaVetor(n);
-        tridiagonal* jac = alocaTridiagonalSOA(n);
+        matrizSOA* jac = alocaMatrizSOA(n);
 
         // Iteracao principal do metodo de Newton: Para i = 0 … max-1:
         for (lint_t i = 0; i < max_it; i++)
@@ -178,11 +178,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         // Libera a memoria alocada
         liberaVetor(delta);
         liberaVetor(fx);
-        liberaTridiagonalSOA(jac);
-        
-        // free(newton_marker);
-        // free(jac_marker);
-        // free(linear_marker);
+        liberaMatrizSOA(jac);
     });
 
     imprimeTempos(newton_elapsed_time, jac_total_elapsed_time, linear_total_elapsed_time, out_file);
