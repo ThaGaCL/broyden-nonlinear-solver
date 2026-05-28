@@ -63,9 +63,10 @@ for grupo in $GRUPOS; do
   done
 
   ${CMD_DIR}/gendata.py <${LIKWID_LOG}
-  ${CMD_DIR}/genplot.py
-  mv ${RESULTS_DIR}/*.csv ${RESULTS_DIR}/*.png ${GIT_DIR}/ 2>/dev/null
 done
+
+python3 ${CMD_DIR}/genplot.py
+mv ${RESULTS_DIR}/*.csv ${RESULTS_DIR}/*.png ${GIT_DIR}/ 2>/dev/null
 
 make clean
 rm -rf ${OUT_DIR} 2>/dev/null
