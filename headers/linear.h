@@ -6,7 +6,7 @@
 #include <math.h>
 #include "utils.h"
 
-#define MAX_IT_GAUSS_SEIDEL 1000
+#define MAX_IT_GAUSS_SEIDEL 100
 
 typedef struct {
     real_t *s;

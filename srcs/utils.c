@@ -135,7 +135,7 @@ void imprimeIteracao(real_t* X, lint_t n, FILE* out)
 
     for (lint_t i = 0; i < n; ++i)
     {
-        fprintf(out, "x%lld = %.10lf\n", (long long)(i + 1), X[i]);
+        fprintf(out, "x%lld = %.20lf\n", (long long)(i + 1), X[i]);
     }
 }
 
