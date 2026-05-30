@@ -1,55 +1,19 @@
 #include "utils.h"
 #include "non_linear.h"
 
-/* Calcula a norma pelo maximo no vetor */
-real_t norm(real_t* V, lint_t n)
-{
-    real_t max = fabs(V[0]);
-
-    for(lint_t i = 1; i < n; ++i)
-    {
-        if(fabs(V[i]) > max)
-        {
-            max = fabs(V[i]);
-        }
-    }
-
-    return max;
-}
-
 /*
+=== Broyden ===
 f(x) = {
     f_1(x) = -2x_1² + 3x_1 - 2x_2 + 1
     f_i(x) = -2x_i² + 3x_i - x_(i - 1) - 2x_(i + 1) + 1, para i = 2, …, n-1
     f_n(x) = -2x_n² + 3x_n - x_(n - 1)
 }
 
-fx deve ser inicializado com n elementos antes de chamar a funcaoo
-*/
-void broyden(real_t* fx, real_t* x, lint_t n)
-{
-    if (n <= 0)
-    {
-        return; // Nao faz nada caso o vetor seja vazio
-    }
+fx deve ser inicializado com n elementos antes de chamar a funcao
+Calcula -fx e retona a norma maxima do vetor fx, ou seja, ||F(X(i))||
+fx == A->b
 
-    // Primeira equacao (i = 0)
-    fx[0] = -2 * x[0] * x[0] + 3 * x[0] - 2 * x[1] + 1; // f_1(x)
-    
-    // Equacoes intermediarias (i = 1, …, n-2)
-    for (lint_t i = 1; i < n - 1; i++)
-    {
-        fx[i] = (-2 * x[i] * x[i]) + (3 * x[i]) - x[i-1] - (2 * x[i+1]) + 1; // f_i(x)
-    }
-
-    // Ultima equacao (i = n-1)
-    if (n > 1)
-    {
-        fx[n-1] = (-2 * x[n-1] * x[n-1]) + (3 * x[n-1]) - x[n-2]; // f_n(x)
-    }
-}
-
-/*
+=== Jacobiana ===
 Como o sistema e tridiagonal, as unicas derivadas nao nulas sao:
 
 J_1(x) = {
@@ -68,36 +32,30 @@ J_n(x) = {
     df_n / dx_n     = -4x_n + 3
 }
 
-jac deve ser inicializada como uma matriz n x n preenchida com zeros antes de chamar a funcao
+jac == A->s, A->p, A->i
 */
-void jacobiana(matrizSOA *jac, real_t* x, lint_t n)
+void jacobiana_broyden(matrizSOA* A, real_t* x, lint_t n, real_t* broyden_norm)
 {
-    if (n <= 0)
-    {
-        return; // Nao faz nada caso o vetor seja vazio
-    }
-
-    // Primeira linha (i = 0)
-    jac->p[0] = -4.0 * x[0] + 3.0; // df_1 / dx_1
-    if (n > 1)
-    {
-        jac->s[0] = -2.0; // df_1 / dx_2  
-    }
+    // Primeira equacao (i = 0)
+    A->p[0] = -4.0 * x[0] + 3.0; // df_1 / dx_1
+    A->b[0] = -(-2 * x[0] * x[0] + 3 * x[0] - 2 * x[1] + 1); // f_1(x)
+    *broyden_norm = ABS(A->b[0]);
     
-    // Linhas intermediarias (i = 1, …, n-2)
+    // Equacoes intermediarias (i = 1, …, n-2)
     for (lint_t i = 1; i < n - 1; i++)
     {
-        jac->i[i] = -1.0; // Subdiagonal, df_i / dx_(i-1)
-        jac->p[i] = -4.0 * x[i] + 3.0; // Diagonal principal, df_i / dx_i
-        jac->s[i] = -2.0; // Superdiagonal, df_i / dx_(i+1)
+        A->i[i] = -1.0; // Subdiagonal, df_i / dx_(i-1)
+        A->p[i] = -4.0 * x[i] + 3.0; // Diagonal principal, df_i / dx_i
+        A->s[i] = -2.0; // Superdiagonal, df_i / dx_(i+1)
+        A->b[i] = -((-2 * x[i] * x[i]) + (3 * x[i]) - x[i-1] - (2 * x[i+1]) + 1); // f_i(x)
+        *broyden_norm = (ABS(A->b[i]) > *broyden_norm) ? ABS(A->b[i]) : *broyden_norm;
     }
 
-    // Ultima linha (i = n - 1)
-    if (n > 1)
-    {
-        jac->i[n - 1] = -1.0; // df_n / dx_(n-1)
-        jac->p[n - 1] = -4.0 * x[n - 1] + 3.0; // df_n / dx_n
-    }
+    // Ultima equacao (i = n-1)
+    A->i[n - 1] = -1.0; // df_n / dx_(n-1)
+    A->p[n - 1] = -4.0 * x[n - 1] + 3.0; // df_n / dx_n
+    A->b[n-1] = -((-2 * x[n-1] * x[n-1]) + (3 * x[n-1]) - x[n-2]); // f_n(x)
+    *broyden_norm = (ABS(A->b[n-1]) > *broyden_norm) ? ABS(A->b[n-1]) : *broyden_norm;
 }
 
 /*
@@ -112,6 +70,11 @@ Newton(F, J, X(0), 𝜺1, 𝜺2, max):
 */
 void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
 {
+    if (n <= 1)
+    {
+        return;
+    }
+
     rtime_t jac_total_elapsed_time = 0; // Variavel para acumular o tempo gasto nos calculos da jacobiana
     rtime_t linear_total_elapsed_time = 0; // Variavel para acumular o tempo gasto nos calculos do sistema linear
 
@@ -126,6 +89,8 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         
         //A->b: fx; A->x: delta; Jacobiana: A->s, A->p, A->i
         matrizSOA* A = alocaMatrizSOA(n);
+        real_t delta_norm = epsilon + 1;
+        real_t broyden_norm = epsilon + 1;
 
         // Iteracao principal do metodo de Newton: Para i = 0 … max-1:
         for (lint_t i = 0; i < max_it; i++)
@@ -135,38 +100,17 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
             fprintf(out_file, "#\n"); // Separador entre iteracoes
             #endif
 
-            // Calcula broyden: -F(X(i))
-            broyden(A->b, X, n);
-
-            // Solucao encontrada: Se || F(X(i)) || < 𝜺1 devolva X(i)
-            if (norm(A->b, n) < epsilon)
+            // Solucao encontrada: Se || F(X(i)) || < 𝜺1 devolva X(i) ou Se || 𝚫(i) || < 𝜺2 devolva X(i+1)
+            if (broyden_norm < epsilon || delta_norm < epsilon)
             {
                 break; // Devolve X(i), X(i) e o vetor atual
             }
-            
-            // Inverte Fx: -F(X(i))
-            for (lint_t j = 0; j < n; j++)
-            {
-                A->b[j] = -A->b[j];
-            }
 
             // Calcula a jacobiana: J(X(i))
-            jac_total_elapsed_time += MEDE_TRECHO(jac_marker, jacobiana(A, X, n));
+            jac_total_elapsed_time += MEDE_TRECHO(jac_marker, jacobiana_broyden(A, X, borders_n, &broyden_norm));
 
             // Resolve o sistema linear: J(X(i))𝚫(i) = -F(X(i)) ==> Ax = b ==> J=A; -Fx=b; delta=x
-            linear_total_elapsed_time += MEDE_TRECHO(linear_marker, solveLinearSystem(A, n));
-
-            // Atualiza a solucao: X(i+1) = X(i) + 𝚫(i)
-            for (lint_t j = 0; j < n; j++)
-            {
-                X[j] += A->x[j];
-            }
-
-            // Solucao encontrada: Se || 𝚫(i) || < 𝜺2 devolva X(i+1)
-            if (norm(A->x, n) < epsilon)
-            {
-                break; // Devolve X(i+1), X ja foi atualizado
-            }
+            linear_total_elapsed_time += MEDE_TRECHO(linear_marker, gaussSeidelSOA(A, borders_n, X, &delta_norm));
         }
 
         #ifdef ENTREGA

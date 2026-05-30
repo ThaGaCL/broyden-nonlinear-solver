@@ -19,45 +19,41 @@ dp0 ds0 0   0   x0 b0
 di0 dp1 ds1 0   x1 b1
 0   di1 dp2 ds2 x2 b2
 0   0   di2 dp2 x3 b3
+
+Incrementa o vetor x a cada iteracao, ou seja, x(i+1) = x(i) + delta
 */
 void gaussSeidelSOA(matrizSOA *A, lint_t n)
 {
-    for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL; ++j)
+    lint_t limite = n-1;
+    lint_t i;
+
+    for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL - 1; ++j)
     {
         // Primeira linha
         A->x[0] = (A->b[0] - A->s[0] * A->x[1]) / A->p[0];
-
-        lint_t limite = n-1;
-        lint_t i;
 
         for (i = 1; i <= limite - 4; i += 4)
         {
             
             real_t sup_1 = A->s[i] * A->x[i + 1];
             real_t inf_1 = A->i[i - 1] * A->x[i - 1];
-
             A->x[i] = (A->b[i] - sup_1 - inf_1) / A->p[i];
 
             real_t sup_2 = A->s[i + 1] * A->x[i + 2];
             real_t inf_2 = A->i[i] * A->x[i];
-
             A->x[i + 1] = (A->b[i + 1] - sup_2 - inf_2) / A->p[i + 1];
 
             real_t sup_3 = A->s[i + 2] * A->x[i + 3];
             real_t inf_3 = A->i[i + 1] * A->x[i + 1];
-
             A->x[i + 2] = (A->b[i + 2] - sup_3 - inf_3) / A->p[i + 2];
 
             real_t sup_4 = A->s[i + 3] * A->x[i + 4];
             real_t inf_4 = A->i[i + 2] * A->x[i + 2];
-
             A->x[i + 3] = (A->b[i + 3] - sup_4 - inf_4) / A->p[i + 3];
-
-
         }
 
-        for(; i < limite; i ++){
-
+        for(; i < limite; i ++)
+        {
             real_t sup = A->s[i] * A->x[i + 1];
             real_t inf = A->i[i - 1] * A->x[i - 1];
         
@@ -66,70 +62,53 @@ void gaussSeidelSOA(matrizSOA *A, lint_t n)
 
         A->x[n - 1] = (A->b[n - 1] - A->i[n - 2] * A->x[n - 2]) / A->p[n - 1];
     }
+
+    // Atualiza o vetor X com a ultima iteracao e calcula a norma
+    // Primeira linha
+    A->x[0] = (A->b[0] - A->s[0] * A->x[1]) / A->p[0];
+    X[0] += A->x[0];
+    *delta_norm = ABS(A->x[0]);
+
+    for (i = 1; i <= limite - 4; i += 4)
+    {
+        real_t sup_1 = A->s[i] * A->x[i + 1];
+        real_t inf_1 = A->i[i - 1] * A->x[i - 1];
+        A->x[i] = (A->b[i] - sup_1 - inf_1) / A->p[i];
+        X[i] += A->x[i];
+        *delta_norm = (ABS(A->x[i]) > *delta_norm) ? ABS(A->x[i]) : *delta_norm;
+
+        real_t sup_2 = A->s[i + 1] * A->x[i + 2];
+        real_t inf_2 = A->i[i] * A->x[i];
+        A->x[i + 1] = (A->b[i + 1] - sup_2 - inf_2) / A->p[i + 1];
+        X[i + 1] += A->x[i + 1];
+        *delta_norm = (ABS(A->x[i + 1]) > *delta_norm) ? ABS(A->x[i + 1]) : *delta_norm;
+
+        real_t sup_3 = A->s[i + 2] * A->x[i + 3];
+        real_t inf_3 = A->i[i + 1] * A->x[i + 1];
+        A->x[i + 2] = (A->b[i + 2] - sup_3 - inf_3) / A->p[i + 2];
+        X[i + 2] += A->x[i + 2];
+        *delta_norm = (ABS(A->x[i + 2]) > *delta_norm) ? ABS(A->x[i + 2]) : *delta_norm;
+
+        real_t sup_4 = A->s[i + 3] * A->x[i + 4];
+        real_t inf_4 = A->i[i + 2] * A->x[i + 2];
+        A->x[i + 3] = (A->b[i + 3] - sup_4 - inf_4) / A->p[i + 3];
+        X[i + 3] += A->x[i + 3];
+        *delta_norm = (ABS(A->x[i + 3]) > *delta_norm) ? ABS(A->x[i + 3]) : *delta_norm;
+    }
+
+    for(; i < limite; i ++)
+    {
+        real_t sup = A->s[i] * A->x[i + 1];
+        real_t inf = A->i[i - 1] * A->x[i - 1];
+        A->x[i] = (A->b[i] - sup - inf) / A->p[i];
+        X[i] += A->x[i];
+        *delta_norm = (ABS(A->x[i]) > *delta_norm) ? ABS(A->x[i]) : *delta_norm;
+    }
+
+    A->x[n - 1] = (A->b[n - 1] - A->i[n - 2] * A->x[n - 2]) / A->p[n - 1];
+    X[n - 1] += A->x[n - 1];
+    *delta_norm = (ABS(A->x[n - 1]) > *delta_norm) ? ABS(A->x[n - 1]) : *delta_norm;
 }
-
-// void gaussSeidelSOA(matrizSOA *A, lint_t n)
-// {
-//     for (lint_t j = 0; j < MAX_IT_GAUSS_SEIDEL; ++j)
-//     {
-//         // Primeira linha
-//         A->x[0] = (A->b[0] - A->s[0] * A->x[1]) / A->p[0];
-
-//         lint_t limite = n-1;
-//         lint_t i;
-
-//         for (i = 1; i <= limite - 8; i += 8)
-//         {
-            
-//             real_t sup_1 = A->s[i] * A->x[i + 1];
-//             real_t inf_1 = A->i[i - 1] * A->x[i - 1];
-
-//             A->x[i] = (A->b[i] - sup_1 - inf_1) / A->p[i];
-
-//             real_t sup_2 = A->s[i + 1] * A->x[i + 2];
-//             real_t inf_2 = A->i[i] * A->x[i];
-
-//             A->x[i + 1] = (A->b[i + 1] - sup_2 - inf_2) / A->p[i + 1];
-
-//             real_t sup_3 = A->s[i + 2] * A->x[i + 3];
-//             real_t inf_3 = A->i[i + 1] * A->x[i + 1];
-
-//             A->x[i + 2] = (A->b[i + 2] - sup_3 - inf_3) / A->p[i + 2];
-
-//             real_t sup_4 = A->s[i + 3] * A->x[i + 4];
-//             real_t inf_4 = A->i[i + 2] * A->x[i + 2];
-
-//             A->x[i + 3] = (A->b[i + 3] - sup_4 - inf_4) / A->p[i + 3];
-
-//             real_t sup_5 = A->s[i + 4] * A->x[i + 5];
-//             real_t inf_5 = A->i[i + 3] * A->x[i + 3];
-//             A->x[i + 4] = (A->b[i + 4] - sup_5 - inf_5) / A->p[i + 4];
-
-//             real_t sup_6 = A->s[i + 5] * A->x[i + 6];
-//             real_t inf_6 = A->i[i + 4] * A->x[i + 4];
-//             A->x[i + 5] = (A->b[i + 5] - sup_6 - inf_6) / A->p[i + 5];
-
-//             real_t sup_7 = A->s[i + 6] * A->x[i + 7];
-//             real_t inf_7 = A->i[i + 5] * A->x[i + 5];
-//             A->x[i + 6] = (A->b[i + 6] - sup_7 - inf_7) / A->p[i + 6];
-            
-//             real_t sup_8 = A->s[i + 7] * A->x[i + 8];
-//             real_t inf_8 = A->i[i + 6] * A->x[i + 6];
-//             A->x[i + 7] = (A->b[i + 7] - sup_8 - inf_8) / A->p[i + 7];
-
-//         }
-
-//         for(; i < limite; i ++){
-
-//             real_t sup = A->s[i] * A->x[i + 1];
-//             real_t inf = A->i[i - 1] * A->x[i - 1];
-        
-//             A->x[i] = (A->b[i] - sup - inf) / A->p[i];
-//         }
-
-//         A->x[n - 1] = (A->b[n - 1] - A->i[n - 2] * A->x[n - 2]) / A->p[n - 1];
-//     }
-// }
 
 matrizSOA *alocaMatrizSOA(lint_t n)
 {
