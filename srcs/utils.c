@@ -79,9 +79,28 @@ void imprimeIteracao(real_t* restrict X, lint_t n, FILE* restrict out)
 {
     if (X == NULL || n <= 0) return;
 
-    for (lint_t i = 0; i < n; ++i)
+    lint_t limite = (n < FIRST_N_LINES) ? n : FIRST_N_LINES;
+    lint_t i, j;
+
+    for (i = 0; i < limite; ++i)
     {
         fprintf(out, "x%lld = %.20lf\n", (long long)(i + 1), X[i]);
+    }
+
+    if (n > FIRST_N_LINES + LAST_N_LINES)
+    {
+        limite = n - LAST_N_LINES;
+        real_t last_x = X[i - 1];
+        for (j = i; j < n - LAST_N_LINES; ++j)        {
+            fprintf(out, "x%lld = %.20lf\n", (long long)(j + 1), last_x);
+        }
+    } else {
+        j = i;
+    }
+
+    for (; j < n; ++j, i++)
+    {
+        fprintf(out, "x%lld = %.20lf\n", (long long)(j + 1), X[i]);
     }
 }
 

@@ -40,7 +40,7 @@ void jacobiana_broyden(matrizSOA* restrict A, real_t* restrict x, lint_t n, real
     A->p[0] = -4.0 * x[0] + 3.0; // df_1 / dx_1
     A->b[0] = -(-2 * x[0] * x[0] + 3 * x[0] - 2 * x[1] + 1); // f_1(x)
     *broyden_norm = ABS(A->b[0]);
-    
+
     // Equacoes intermediarias (i = 1, …, n-2)
     for (lint_t i = 1; i < n - 1; i++)
     {
@@ -87,8 +87,14 @@ void newton(real_t* restrict X, real_t epsilon, lint_t max_it, lint_t n, FILE* r
             out_file = stdout;
         }
         
+        lint_t borders_n = FIRST_N_LINES + LAST_N_LINES;
+        if (n < borders_n)
+        {
+            borders_n = n;
+        }
+
         //A->b: fx; A->x: delta; Jacobiana: A->s, A->p, A->i
-        matrizSOA* restrict A = alocaMatrizSOA(n);
+        matrizSOA* restrict A = alocaMatrizSOA(borders_n);
         real_t delta_norm = epsilon + 1;
         real_t broyden_norm = epsilon + 1;
 

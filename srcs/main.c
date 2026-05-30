@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     printf("> Maximo de iteracoes: %lld\n", max_it);
 
     // Resolve o sistema pelo metodo de Newton
-    real_t *restrict X = alocaVetorInicializado(n, x0);
+    real_t *restrict X = alocaVetorInicializado(FIRST_N_LINES + LAST_N_LINES, x0);
     newton(X, epsilon, max_it, n, out_file);
     
     // Libera a memoria alocada e fecha o arquivo de saida, se necessario

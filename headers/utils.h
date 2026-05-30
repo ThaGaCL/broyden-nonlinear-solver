@@ -11,6 +11,9 @@
 
 #include <likwid.h>
 
+#define FIRST_N_LINES 50
+#define LAST_N_LINES 50
+
 // Valor absoluto de um número real. Alternativa ao uso da funcao 'fabs()'
 #define ABS(num) ((num) < 0.0 ? -(num) : (num))
 
