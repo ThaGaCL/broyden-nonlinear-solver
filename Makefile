@@ -30,8 +30,9 @@ LIKWID_INC =
 LIKWID_LIB = 
 
 # Flags
+OPT_FLAGS = -Ofast -ffast-math -funsafe-math-optimizations -fassociative-math
 AVX_FLAGS = -mavx -march=native -fopt-info-vec
-CFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11 $(ENTREGA_FLAG) $(LIKWID_INC)
+CFLAGS = -O3 $(OPT_FLAGS) $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu11 $(ENTREGA_FLAG) $(LIKWID_INC)
 CXXFLAGS = -O3 $(AVX_FLAGS) -Wno-unused-result -Wall -Wextra -I$(HEADERS_DIR) -std=gnu++11 $(LIKWID_INC)
 LFLAGS = -lm $(LIKWID_LIB)
 
