@@ -107,17 +107,18 @@ void gaussSeidelSOA(matrizSOA *restrict A, lint_t n, real_t *restrict X, real_t 
 
 matrizSOA *alocaMatrizSOA(lint_t n)
 {
-    matrizSOA * restrict T = (matrizSOA *)malloc(sizeof(matrizSOA));
+    matrizSOA *restrict T = (matrizSOA *)malloc(sizeof(matrizSOA) + 5 * sizeof(real_t) * n);
+    
     if (T == NULL)
     {
         return NULL; // Prevencao caso falte memória
     }
 
-    T->s = (real_t *)calloc(n, sizeof(real_t));
-    T->p = (real_t *)calloc(n, sizeof(real_t));
-    T->i = (real_t *)calloc(n, sizeof(real_t));
-    T->x = (real_t *)calloc(n, sizeof(real_t));
-    T->b = (real_t *)calloc(n, sizeof(real_t));
+    T->s = (real_t *)(T + 1); // Superdiagonal
+    T->p = T->s + n; // Diagonal principal
+    T->i = T->p + n; // Subdiagonal
+    T->x = T->i + n; // Vetor de incógnitas
+    T->b = T->x + n; // Vetor de termos independentes
 
     return T;
 }
@@ -126,12 +127,6 @@ void liberaMatrizSOA(matrizSOA *restrict T)
 {
     if (T != NULL)
     {
-        free(T->s);
-        free(T->p);
-        free(T->i);
-        free(T->x);
-        free(T->b);
-
         free(T);
     }
 }
