@@ -1,11 +1,6 @@
 #include "utils.h"
 #include "linear.h"
 
-void solveLinearSystem(matrizSOA *A, lint_t n)
-{
-    gaussSeidelSOA(A, n);
-}
-
 /*
 Implementacao utilizando a estrategia "struct-of-arrays"
 
@@ -22,7 +17,7 @@ di0 dp1 ds1 0   x1 b1
 
 Incrementa o vetor x a cada iteracao, ou seja, x(i+1) = x(i) + delta
 */
-void gaussSeidelSOA(matrizSOA *A, lint_t n)
+void gaussSeidelSOA(matrizSOA *restrict A, lint_t n, real_t *restrict X, real_t *restrict delta_norm)
 {
     lint_t limite = n-1;
     lint_t i;
@@ -112,7 +107,7 @@ void gaussSeidelSOA(matrizSOA *A, lint_t n)
 
 matrizSOA *alocaMatrizSOA(lint_t n)
 {
-    matrizSOA *T = (matrizSOA *)malloc(sizeof(matrizSOA));
+    matrizSOA * restrict T = (matrizSOA *)malloc(sizeof(matrizSOA));
     if (T == NULL)
     {
         return NULL; // Prevencao caso falte memória
@@ -127,7 +122,7 @@ matrizSOA *alocaMatrizSOA(lint_t n)
     return T;
 }
 
-void liberaMatrizSOA(matrizSOA *T)
+void liberaMatrizSOA(matrizSOA *restrict T)
 {
     if (T != NULL)
     {

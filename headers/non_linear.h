@@ -8,9 +8,7 @@
 #include "utils.h"
 #include "linear.h"
 
-real_t norm(real_t* V, lint_t n);
-void broyden(real_t* fx, real_t* x, lint_t n);
-void jacobiana(matrizSOA* A, real_t* x, lint_t n);
-void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file);
+void jacobiana_broyden(matrizSOA* restrict A, real_t* restrict x, lint_t n, real_t* restrict broyden_norm);
+void newton(real_t* restrict X, real_t epsilon, lint_t max_it, lint_t n, FILE* restrict out_file);
 
 #endif

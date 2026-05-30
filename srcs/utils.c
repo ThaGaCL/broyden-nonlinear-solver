@@ -61,66 +61,12 @@ real_t* alocaVetorInicializado(lint_t n, real_t valor_inicial)
     return vetor;
 }
 
-// Aloca uma matriz de tamanho linhas x colunas, mas nao a inicializa
-real_t **alocaMatriz(lint_t linhas, lint_t colunas)
-{
-    if (linhas <= 0 || colunas <= 0)
-    {
-        return NULL;
-    }
-
-    real_t** matriz = (real_t**) malloc(linhas * sizeof(real_t*));
-
-    for (lint_t i = 0; i < linhas; i++)
-    {
-        matriz[i] = (real_t*) malloc(colunas * sizeof(real_t));
-    }
-
-    return matriz;
-}
-
-// Aloca uma matriz de tamanho linhas x colunas e a inicializa
-real_t **alocaMatrizInicializada(lint_t linhas, lint_t colunas, real_t valor_inicial)
-{
-    if (linhas <= 0 || colunas <= 0)
-    {
-        return NULL;
-    }
-
-    real_t** matriz = (real_t**) malloc(linhas * sizeof(real_t*));
-
-    for (lint_t i = 0; i < linhas; i++)
-    {
-        matriz[i] = (real_t*) malloc(colunas * sizeof(real_t));
-
-        for (lint_t j = 0; j < colunas; j++)
-        {
-            matriz[i][j] = valor_inicial;
-        }
-    }
-
-    return matriz;
-}
-
 // Libera a memoria alocada para um vetor
-void liberaVetor(real_t* vetor)
+void liberaVetor(real_t* restrict vetor)
 {
     if (vetor)
     {
         free(vetor);
-    }
-}
-
-// Libera a memoria alocada para uma matriz
-void liberaMatriz(real_t** matriz, lint_t linhas)
-{
-    if (matriz)
-    {
-        for (lint_t i = 0; i < linhas; i++)
-        {
-            free(matriz[i]);
-        }
-        free(matriz);
     }
 }
 
@@ -129,7 +75,7 @@ void liberaMatriz(real_t** matriz, lint_t linhas)
 	x2 = <valor>\n
 	...
 */
-void imprimeIteracao(real_t* X, lint_t n, FILE* out)
+void imprimeIteracao(real_t* restrict X, lint_t n, FILE* restrict out)
 {
     if (X == NULL || n <= 0) return;
 
@@ -146,7 +92,7 @@ void imprimeIteracao(real_t* X, lint_t n, FILE* out)
 # Tempo SL: <tempo gasto na resolucao dos sistemas lineares>
 ###########
 */
-void imprimeTempos(rtime_t newton_time, rtime_t jac_time, rtime_t linear_time, FILE* out)
+void imprimeTempos(rtime_t newton_time, rtime_t jac_time, rtime_t linear_time, FILE* restrict out)
 {
     fprintf(out, "###########\n");
     fprintf(out, "# Tempo Total: %.10lf ms\n", newton_time);

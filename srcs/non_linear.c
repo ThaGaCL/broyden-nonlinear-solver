@@ -34,7 +34,7 @@ J_n(x) = {
 
 jac == A->s, A->p, A->i
 */
-void jacobiana_broyden(matrizSOA* A, real_t* x, lint_t n, real_t* broyden_norm)
+void jacobiana_broyden(matrizSOA* restrict A, real_t* restrict x, lint_t n, real_t* restrict broyden_norm)
 {
     // Primeira equacao (i = 0)
     A->p[0] = -4.0 * x[0] + 3.0; // df_1 / dx_1
@@ -68,7 +68,7 @@ Newton(F, J, X(0), 𝜺1, 𝜺2, max):
 
 𝜺1 == 𝜺2
 */
-void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
+void newton(real_t* restrict X, real_t epsilon, lint_t max_it, lint_t n, FILE* restrict out_file)
 {
     if (n <= 1)
     {
@@ -88,7 +88,7 @@ void newton(real_t* X, real_t epsilon, lint_t max_it, lint_t n, FILE* out_file)
         }
         
         //A->b: fx; A->x: delta; Jacobiana: A->s, A->p, A->i
-        matrizSOA* A = alocaMatrizSOA(n);
+        matrizSOA* restrict A = alocaMatrizSOA(n);
         real_t delta_norm = epsilon + 1;
         real_t broyden_norm = epsilon + 1;
 
